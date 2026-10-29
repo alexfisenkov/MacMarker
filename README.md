@@ -2,6 +2,16 @@
 
 A native macOS menu bar app for drawing over your Mac desktop and a mirrored Sidecar display. MIT licensed; © 2026 Alexander Fisenkov.
 
+## Download and install
+
+Download the [latest release](https://github.com/alexfisenkov/MacMarker/releases/latest) or directly get [MacMarker 0.1.0 for Apple silicon](https://github.com/alexfisenkov/MacMarker/releases/download/v0.1.0/MacMarker-0.1.0-macOS-arm64.zip). The published app is signed and notarized.
+
+1. Unzip the download.
+2. Move `MacMarker.app` to Applications and open it.
+3. When macOS asks, allow MacMarker under **System Settings → Privacy & Security → Accessibility** so it can handle the hold shortcut globally.
+
+The release download is for Apple silicon Macs. Building from source produces a native build for the Mac architecture in use.
+
 ## Build and install
 
 Requires macOS 13 or later and Xcode command line tools with Swift 6 or later.
@@ -21,7 +31,7 @@ The default shortcut is **Right Option**. Hold it and draw with the mouse or a p
 
 Native settings let you change color, opacity, stroke width, and the hold shortcut. macOS Accessibility permission is required for global input handling; grant it in System Settings when prompted. The app also provides a control for starting at login. Escape cancels marking. macOS reserves some keys and combinations, so those shortcuts may not be available.
 
-MacMarker makes no network requests, does not record the screen, and keeps stroke geometry in memory only. Sidecar input is provided by macOS and behavior depends on the connected device and available shortcuts.
+MacMarker makes no network requests, does not record the screen, and keeps stroke geometry in memory only. Sidecar input is provided by macOS and behavior depends on the connected device and available shortcuts. Physical iPad and Apple Pencil acceptance has not yet been performed.
 
 ## Release checks
 

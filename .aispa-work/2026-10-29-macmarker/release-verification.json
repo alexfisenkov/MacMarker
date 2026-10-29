@@ -1,0 +1,47 @@
+{
+  "version": "0.1.0",
+  "sourceCommit": "caeb47d9d89e69ae0c40dad8aae06e9e754bb015",
+  "ci": {
+    "runId": 40901640486,
+    "status": "success",
+    "url": "https://github.com/alexfisenkov/MacMarker/actions/runs/40901640486"
+  },
+  "artifact": {
+    "name": "MacMarker-0.1.0-macOS-arm64.zip",
+    "architecture": "arm64",
+    "bytes": 170755,
+    "sha256": "b9ffc2d29a2202a3634272a1073d585cecac793188cf52cbdf876d625d1ab45b"
+  },
+  "signature": {
+    "authority": "Developer ID Application: Aleksander Fisenkov (5BABN9U6WS)",
+    "team": "5BABN9U6WS",
+    "hardenedRuntime": true,
+    "verified": true
+  },
+  "notarization": {
+    "id": "85f868af-8434-482b-848e-db377f779119",
+    "status": "Accepted",
+    "stapleValidated": true,
+    "gatekeeper": "accepted: Notarized Developer ID"
+  },
+  "installed": {
+    "path": "/Applications/MacMarker.app",
+    "sourceMatches": true,
+    "processObserved": true,
+    "uiObserved": true,
+    "inputStatus": "Готов",
+    "launchAtLoginObserved": true
+  },
+  "checks": {
+    "productionLifecycleChecks": 12,
+    "physicalSidecarPencil": "NOT_RUN"
+  },
+  "review": "Disabled by direct owner request; no critic agents.",
+  "published": {
+    "tag": "v0.1.0",
+    "url": "https://github.com/alexfisenkov/MacMarker/releases/tag/v0.1.0",
+    "remoteAssetBytes": 170755,
+    "remoteAssetDigest": "sha256:b9ffc2d29a2202a3634272a1073d585cecac793188cf52cbdf876d625d1ab45b",
+    "digestMatches": true
+  }
+}

@@ -22,3 +22,7 @@ No iPad app, video transport, drawing tool modes, shapes, eraser, accounts, tele
 
 ## Открытые места
 Physical iPad/Pencil smoke requires the owner. Permission grant is controlled by macOS/user, not bypassed by the app. Do not mark physical acceptance proven by CI or simulations.
+
+## Discovered release constraints
+D01: Xcode changed during build and now requires owner license agreement; do not accept or modify SDKs. Clean hosted CI artifact may be the unsigned release source, then local codesign/notary/install. CLT contains stale private PackageDescription interface, unrelated to app runtime.
+D02: Corrected CI setup version parsing after first hosted attempt failed before app compilation; repaired final CI is justified.
