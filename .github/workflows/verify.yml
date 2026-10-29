@@ -1,0 +1,41 @@
+name: Manual verification
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode with Swift 6
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -d /Applications/Xcode_26.6.app/Contents/Developer ]]; then
+            sudo xcode-select --switch /Applications/Xcode_26.6.app/Contents/Developer
+          fi
+          SWIFT_VERSION="$(swift --version | awk '/Swift version/ {print $3; exit}')"
+          if [[ "${SWIFT_VERSION%%.*}" -lt 6 ]]; then
+            echo "macos-26 default toolchain must provide Swift 6 or newer (found $SWIFT_VERSION)" >&2
+            exit 1
+          fi
+          xcode-select -p
+          xcodebuild -version
+          swift --version
+      - name: Build release app
+        run: ./script/build.sh
+      - name: Run production self-test
+        run: ./dist/MacMarker.app/Contents/MacOS/MacMarker --self-test
+      - name: Remove local ad-hoc signature
+        run: codesign --remove-signature dist/MacMarker.app
+      - name: Package unsigned app
+        run: ditto -c -k --keepParent dist/MacMarker.app dist/MacMarker-unsigned.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MacMarker-unsigned-macos
+          path: dist/MacMarker-unsigned.zip
+          if-no-files-found: error
