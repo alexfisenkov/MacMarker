@@ -28,11 +28,11 @@ Native macOS menu-bar marker by Alexander Fisenkov. Hold a configurable key to d
 - Targeted production lifecycle smoke: `./dist/MacMarker.app/Contents/MacOS/MacMarker --self-test` (headless, no input synthesis).
 - Install: `./script/install.sh`; optional notarization: `NOTARY_PROFILE=<existing-name> ./script/notarize.sh`.
 - Signature validation: `codesign --verify --deep --strict /Applications/MacMarker.app`.
-- Installed app/process/signature and physical Sidecar/Pencil acceptance are separate evidence. Physical acceptance remains pending until tested on the owner's actual iPad.
+- Installed app/process/signature and physical Sidecar/Pencil acceptance are separate evidence. The owner confirmed working Pencil/Sidecar behavior and task completion on 2026-10-29; the agent did not perform that physical trial.
 - Next session first reads `.aispa-work/PROGRESS.md`; it lists unresolved acceptance and direct owner decisions. Any later fix adds a dated entry there and an ordinary descriptive git commit.
 
 ## Release evidence and local trap
 - Release v0.1.0 uses source SHA `caeb47d9d89e69ae0c40dad8aae06e9e754bb015`, successful GitHub CI40901640486, arm64 artifact. See run `release-verification.json` for signature/notary/published digest.
 - Local Xcode changed during run; do not accept licenses or repair SDKs as part of ordinary app work. If local toolchain is inconsistent, build from a clean hosted runner, then sign the exact artifact locally.
 - Finder metadata on generated bundles can invalidate codesign. Sign/staple in a generated release staging directory; remove only FinderInfo/ResourceFork from generated artifacts, preserve user originals.
-- App currently installed at `/Applications/MacMarker.app`; UI showed `Готов`, login registration enabled. Physical Pencil acceptance remains separate.
+- App currently installed at `/Applications/MacMarker.app`; UI showed `Готов`, login registration enabled. Physical Pencil/Sidecar acceptance was subsequently confirmed by the owner on 2026-10-29 (see release-verification.json).

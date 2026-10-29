@@ -34,7 +34,8 @@
   },
   "checks": {
     "productionLifecycleChecks": 12,
-    "physicalSidecarPencil": "NOT_RUN"
+    "physicalSidecarPencil": "OWNER_CONFIRMED",
+    "agentPhysicalSidecarPencil": "NOT_RUN"
   },
   "review": "Disabled by direct owner request; no critic agents.",
   "published": {
@@ -43,5 +44,11 @@
     "remoteAssetBytes": 170755,
     "remoteAssetDigest": "sha256:b9ffc2d29a2202a3634272a1073d585cecac793188cf52cbdf876d625d1ab45b",
     "digestMatches": true
+  },
+  "ownerAcceptance": {
+    "confirmedAt": "2026-10-29T23:46:51+08:00",
+    "quote": "всё работает задача завершена",
+    "taskStatus": "complete",
+    "evidence": "Direct owner confirmation in chat after installed app trial."
   }
 }
