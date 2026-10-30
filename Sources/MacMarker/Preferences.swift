@@ -66,12 +66,14 @@ struct Shortcut: Codable, Equatable {
 final class Preferences {
     private let defaults = UserDefaults.standard
     var onChange: (() -> Void)?
+    var isEnabled: Bool { didSet { save() } }
     var color: NSColor { didSet { save() } }
     var opacity: Double { didSet { save() } }
     var width: Double { didSet { save() } }
     var shortcut: Shortcut { didSet { save() } }
 
     init() {
+        isEnabled = defaults.object(forKey: "markerEnabled") as? Bool ?? true
         let stored = defaults.dictionary(forKey: "markerColor")
         color = NSColor(srgbRed: stored?["r"] as? Double ?? 1,
                         green: stored?["g"] as? Double ?? 0.74,
@@ -90,6 +92,7 @@ final class Preferences {
     }
 
     private func save() {
+        defaults.set(isEnabled, forKey: "markerEnabled")
         let rgb = color.usingColorSpace(.sRGB) ?? .systemYellow
         defaults.set(["r": rgb.redComponent, "g": rgb.greenComponent, "b": rgb.blueComponent], forKey: "markerColor")
         defaults.set(opacity, forKey: "markerOpacity")

@@ -7,6 +7,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var input: InputController!
     private var settings: SettingsController!
     private var statusMenuItem: NSMenuItem!
+    private var toggleMenuItem: NSMenuItem!
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         preferences = Preferences()
@@ -34,6 +35,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let permission = NSMenuItem(title: "Проверить доступ", action: #selector(retryPermission), keyEquivalent: "")
         permission.target = self
         menu.addItem(permission)
+        toggleMenuItem = NSMenuItem(title: "", action: #selector(toggleEnabled), keyEquivalent: "")
+        toggleMenuItem.target = self
+        menu.addItem(toggleMenuItem)
         menu.addItem(.separator())
         let quit = NSMenuItem(title: "Завершить MacMarker", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         quit.target = NSApp
@@ -51,11 +55,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func refreshStatus() {
         guard statusMenuItem != nil else { return }
         statusMenuItem.title = input.statusText
+        toggleMenuItem?.title = preferences.isEnabled ? "Выключить маркер" : "Включить маркер"
         settings.refresh()
         statusItem.button?.toolTip = "MacMarker · " + input.statusText
     }
 
     @objc private func showSettings() { input.failOpen(); settings.show() }
+    @objc private func toggleEnabled() { preferences.isEnabled.toggle() }
     @objc private func retryPermission() { input.retryPermission(prompt: true); settings.show() }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }

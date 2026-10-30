@@ -51,6 +51,12 @@ final class InputController {
     }
 
     func retryPermission(prompt: Bool = false) {
+        guard preferences.isEnabled else {
+            stopRecording()
+            removeTap()
+            setStatus(available: false, text: "Маркер выключен · клавиши свободны")
+            return
+        }
         if prompt {
             let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
             _ = AXIsProcessTrustedWithOptions(options)
@@ -82,6 +88,7 @@ final class InputController {
 
     func preferencesChanged() {
         failOpen()
+        retryPermission()
         if isAvailable { setStatus(available: true, text: "Готов · удерживайте \(preferences.shortcut.displayName)") }
     }
 
@@ -146,6 +153,7 @@ final class InputController {
     }
 
     private func tick() {
+        guard preferences.isEnabled else { return }
         let now = ProcessInfo.processInfo.systemUptime
         if now - lastPermissionCheck >= 1 {
             lastPermissionCheck = now
@@ -196,14 +204,15 @@ final class InputController {
 
     /// true consumes the event. All mutation and rendering run on the main loop.
     func handle(type: CGEventType, event: CGEvent) -> Bool {
+        let keyboard = type == .keyDown || type == .keyUp || type == .flagsChanged
+        let code = UInt16(clamping: event.getIntegerValueField(.keyboardEventKeycode))
+        if keyboard && isRecording { return record(type: type, event: event, code: code) }
+        guard preferences.isEnabled else { return false }
         if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
             failOpen()
             if let tap { CGEvent.tapEnable(tap: tap, enable: true) }
             return false
         }
-        let keyboard = type == .keyDown || type == .keyUp || type == .flagsChanged
-        let code = UInt16(clamping: event.getIntegerValueField(.keyboardEventKeycode))
-        if keyboard && isRecording { return record(type: type, event: event, code: code) }
         let now = ProcessInfo.processInfo.systemUptime
         if type == .keyUp, suppressedKeys.remove(code) != nil {
             if code == preferences.shortcut.keyCode { session.release(at: now) }
