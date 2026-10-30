@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-30",
+  "version": "0.1.1",
+  "sourceCommit": "af5552358c72c2099a0b90a83a2900b1d6194c7f",
+  "ownerRequest": "Добавить в меню включение/выключение прослушивания, не закрывая приложение.",
+  "ci": {
+    "runId": 41013105569,
+    "status": "success",
+    "url": "https://github.com/alexfisenkov/MacMarker/actions/runs/41013105569"
+  },
+  "notarization": {
+    "id": "2dd9df9b-23e4-48af-8e0a-217d8f47f5bb",
+    "status": "Accepted",
+    "stapleValidated": true,
+    "gatekeeper": "Notarized Developer ID accepted"
+  },
+  "installed": {
+    "path": "/Applications/MacMarker.app",
+    "versionVerified": true,
+    "sourceVerified": true,
+    "signatureVerified": true,
+    "oldDrawingPreferencesPreserved": true,
+    "runtimeProbe": {
+      "disabledProcessAliveWithoutGlobalHook": true,
+      "disabledChoicePersistsAcrossRelaunch": true,
+      "enabledRestoresGlobalHook": true,
+      "finalEnabled": true,
+      "menuClickVerification": "NOT_RUN: native UI tool cannot target the menu-only app; runtime checked through preferences/relaunch and CGGetEventTapList."
+    }
+  },
+  "release": {
+    "url": "https://github.com/alexfisenkov/MacMarker/releases/tag/v0.1.1",
+    "asset": "MacMarker-0.1.1-macOS-arm64.zip",
+    "bytes": 171603,
+    "sha256": "c8bcf896917a102e2d4870cab60c1937f98c54a2527649727206c2f78b581d0e",
+    "remoteDigestMatches": true
+  },
+  "limitations": [
+    "Menu clicks were not exercised: native UI automation cannot target the menu-only app. Backend enabled/disabled state was tested via UserDefaults, relaunch and CGGetEventTapList.",
+    "Physical Pencil/Sidecar test of version0.1.1 was not performed; owner accepted version0.1.0 previously."
+  ],
+  "review": "No critic agents or broad review cycle, following project owner fast-mode instruction."
+}

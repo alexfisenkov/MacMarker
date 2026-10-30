@@ -15,8 +15,8 @@ Native macOS menu-bar marker by Alexander Fisenkov. Hold a configurable key to d
 - `.aispa-work/`: public, sanitized requirements and progress; no private machine state or credentials.
 
 ## Delivery and scope
-- v0.1.0, bundle identifier `com.alexfisenkov.macmarker`, public `alexfisenkov/MacMarker`.
-- Only color, opacity, width, configurable hold shortcut, and necessary launch/permission/quit controls. Hold freezes stroke visibility; release begins a 1.4-second fade and immediately restores normal input.
+- v0.1.1, bundle identifier `com.alexfisenkov.macmarker`, public `alexfisenkov/MacMarker`.
+- Only color, opacity, width, configurable hold shortcut, and necessary enable/disable, launch/permission/quit controls. Hold freezes stroke visibility; release begins a 1.4-second fade and immediately restores normal input.
 - Default: right Option. Any ordinary key/chord or single modifier may be recorded. Reserved OS keys cannot be promised.
 - Accessibility permission is user-controlled. Never modify TCC databases or disable protections. Fail open when input monitoring is lost.
 - Keyboard contents and screen content are never logged or stored; stroke geometry remains in RAM.
@@ -32,6 +32,7 @@ Native macOS menu-bar marker by Alexander Fisenkov. Hold a configurable key to d
 - Next session first reads `.aispa-work/PROGRESS.md`; it lists unresolved acceptance and direct owner decisions. Any later fix adds a dated entry there and an ordinary descriptive git commit.
 
 ## Release evidence and local trap
+- Current release v0.1.1: source `af5552358c72c2099a0b90a83a2900b1d6194c7f`, CI41013105569, receipt `.aispa-work/updates/2026-10-30-toggle.json`. `Preferences.isEnabled` persists as markerEnabled; disabling removes CGEventTap, and timer/permission retries cannot recreate it while paused.
 - Release v0.1.0 uses source SHA `caeb47d9d89e69ae0c40dad8aae06e9e754bb015`, successful GitHub CI40901640486, arm64 artifact. See run `release-verification.json` for signature/notary/published digest.
 - Local Xcode changed during run; do not accept licenses or repair SDKs as part of ordinary app work. If local toolchain is inconsistent, build from a clean hosted runner, then sign the exact artifact locally.
 - Finder metadata on generated bundles can invalidate codesign. Sign/staple in a generated release staging directory; remove only FinderInfo/ResourceFork from generated artifacts, preserve user originals.
