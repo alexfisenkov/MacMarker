@@ -37,3 +37,5 @@ Native macOS menu-bar marker by Alexander Fisenkov. Hold a configurable key to d
 - Local Xcode changed during run; do not accept licenses or repair SDKs as part of ordinary app work. If local toolchain is inconsistent, build from a clean hosted runner, then sign the exact artifact locally.
 - Finder metadata on generated bundles can invalidate codesign. Sign/staple in a generated release staging directory; remove only FinderInfo/ResourceFork from generated artifacts, preserve user originals.
 - App currently installed at `/Applications/MacMarker.app`; UI showed `Готов`, login registration enabled. Physical Pencil/Sidecar acceptance was subsequently confirmed by the owner on 2026-10-29 (see release-verification.json).
+
+- The owner tested menu enable/disable and accepted v0.1.1 on 2026-10-30; task complete. See `.aispa-work/updates/2026-10-30-toggle.json` for the direct confirmation.

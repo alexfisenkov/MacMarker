@@ -25,7 +25,8 @@
       "disabledChoicePersistsAcrossRelaunch": true,
       "enabledRestoresGlobalHook": true,
       "finalEnabled": true,
-      "menuClickVerification": "NOT_RUN: native UI tool cannot target the menu-only app; runtime checked through preferences/relaunch and CGGetEventTapList."
+      "menuClickVerification": "OWNER_CONFIRMED",
+      "agentMenuClickVerification": "NOT_RUN: native UI tool cannot target the menu-only app; runtime checked through preferences/relaunch and CGGetEventTapList."
     }
   },
   "release": {
@@ -36,8 +37,14 @@
     "remoteDigestMatches": true
   },
   "limitations": [
-    "Menu clicks were not exercised: native UI automation cannot target the menu-only app. Backend enabled/disabled state was tested via UserDefaults, relaunch and CGGetEventTapList.",
+    "Agent UI automation did not exercise menu clicks; the owner subsequently tested enabling/disabling and confirmed task completion.",
     "Physical Pencil/Sidecar test of version0.1.1 was not performed; owner accepted version0.1.0 previously."
   ],
-  "review": "No critic agents or broad review cycle, following project owner fast-mode instruction."
+  "review": "No critic agents or broad review cycle, following project owner fast-mode instruction.",
+  "ownerAcceptance": {
+    "confirmedAt": "2026-10-30T14:49:41+08:00",
+    "quote": "Проверил, включение и выключение работают. Всё отлично, задача завершена.",
+    "scope": "Menu enable/disable toggle",
+    "taskStatus": "complete"
+  }
 }
