@@ -1,7 +1,7 @@
 <!-- aispa:progress -->
 # MacMarker — состояние
 
-Последняя сборка: `.aispa-work/2026-10-29-macmarker/` — v0.1.0 опубликована, Developer ID подписан, Apple notarization Accepted, установлена и запущена; владелец подтвердил работоспособность и завершение задачи.
+Последний результат: Windows0.2.0 опубликован, сайт https://alexfisenkov.github.io/MacMarker/ развёрнут; Mac0.1.1 остаётся отдельным принятым выпуском. История первого прогона — `.aispa-work/2026-10-29-macmarker/`.
 
 ## Договорились — не пересматривать
 - «очень быстро, без кучи проверок, критиков» — R14; critics/review/blind agents отключены владельцем.
@@ -33,10 +33,16 @@
 
 - Приёмка обновления0.1.1: «Проверил, включение и выключение работают. Всё отлично, задача завершена.» (2026-10-30T14:49:41+08:00). Открытых задач по переключателю нет.
 
-## В работе 2026-11-02 — сайт и Windows
+## Выполнено 2026-11-02 — сайт и Windows
 - Запрос владельца: сайт в том же стиле, что остальные продукты, и полноценная Windows-версия. Уточнено: только мышь, без планшетов; удержание клавиши и движение мыши рисует без клика.
 - Дизайн/план: `docs/superpowers/specs/2026-11-02-windows-and-website-design.md`, `docs/superpowers/plans/2026-11-02-windows-and-website.md`.
-- Сайт адаптирует проверенный live MacSwitcher/MacDictate стиль, Pages provisioned с workflow build; локальные1440/390, RU/EN и legal navigation PASS. Публикация ждёт Windows assets.
-- Windows0.2.0: .NET10/Core+WinForms, F8 default, мышь без нажатия кнопки, fade1.4sec, четыре настройки, on/off tray. Mac0.1.1 не менялся. Финальные native CI и выпуск ещё не выполнены.
+- Сайт адаптирует проверенный live MacSwitcher/MacDictate стиль, Pages provisioned с workflow build; локальные1440/390, RU/EN и legal navigation PASS. Публикация выполнена после проверки реальных Windows assets; HTTPS файлы совпали с исходниками.
+- Windows0.2.0: .NET10/Core+WinForms, F8 default, мышь без нажатия кнопки, fade1.4sec, четыре настройки, on/off tray. Mac0.1.1 не менялся. Финальный Windows-only CI41410330492 PASS, installer/ZIP опубликованы; физическая приёмка Windows10/11 на устройстве владельца NOT_RUN.
 
 - Первый финальный CI41409410909: Mac+сайт PASS, WindowsCore+публикацияEXE/установщика PASS; nativeF8+mousemove+layeredrender PASS, проверка mouseMovePassesThroughOverlay FAIL. Публикация Windows не выполнялась. Причина исправляется в windows/**; повтор будет Windows-only, без повторения уже зелёных Mac/site jobs.
+
+- Исправленный native CI41410330492 PASS: все22 нативные проверки, запуск ZIP и установленного EXE, uninstall с сохранением настроек. Первый проход Mac/site41409410909 PASS, их файлы не менялись в repair.
+- Windows release v0.2.0, source8126f78, EXE35485245bytes и ZIP47489976bytes; remote SHA256 совпали с CI manifest. Пакет unsigned; Macv0.1.1 сохранён global latest.
+- Pages deploy41411271199 PASS; 5 HTTPS-файлов byte-match; браузер1440/390, RU/EN/legal, отсутствие overflow и console errors PASS.
+- Не подтверждены физический Windows10/11, mixedDPI/SmartScreen; это явно указано в release/receipt. Кодовой незавершённости по текущему брифу нет.
+- Доказательства: `.aispa-work/updates/2026-11-02-windows-and-website.json`.

@@ -1,0 +1,162 @@
+{
+  "date": "2026-11-02",
+  "ownerRequest": "Сайт в стиле других продуктов и Windows-версия; уточнение: клавиша удерживается, движение мыши рисует без клика и без планшетов.",
+  "releasedSourceSHA": "8126f78a6c417b14c668f5c19852754f04a07c9d",
+  "windows": {
+    "version": "0.2.0",
+    "release": "https://github.com/alexfisenkov/MacMarker/releases/tag/v0.2.0",
+    "signed": false,
+    "build": {
+      "schemaVersion": 1,
+      "version": "0.2.0",
+      "platform": "windows-x64",
+      "sourceSHA": "8126f78a6c417b14c668f5c19852754f04a07c9d",
+      "sourceRoot": "windows",
+      "signed": false,
+      "runtime": ".NET10 self-contained",
+      "runtimePacks": [
+        {
+          "package": "Microsoft.NETCore.App.Runtime.win-x64",
+          "version": "10.0.13",
+          "files": [
+            "LICENSE.TXT",
+            "microsoft.netcore.app.runtime.win-x64.nuspec",
+            "Microsoft.NETCore.App.versions.txt",
+            "THIRD-PARTY-NOTICES.TXT"
+          ]
+        },
+        {
+          "package": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+          "version": "10.0.13",
+          "files": [
+            "LICENSE",
+            "microsoft.windowsdesktop.app.runtime.win-x64.nuspec",
+            "Microsoft.WindowsDesktop.App.versions.txt"
+          ]
+        }
+      ],
+      "artifacts": [
+        {
+          "name": "MacMarker-0.2.0-windows-x64.zip",
+          "bytes": 47489976,
+          "sha256": "0733f832c1b947d521ca935ccc0ee3cd055746ccaba3ede6aa992588017f3101"
+        },
+        {
+          "name": "MacMarker-0.2.0-windows-x64-setup.exe",
+          "bytes": 35485245,
+          "sha256": "2d1ceffff48c45b4fbcd0a6a06fd7ecd4d0b9f9dad5789bfec12a03d4c8fd90d"
+        }
+      ]
+    },
+    "verification": {
+      "coreAssertions": 21,
+      "nativeAssertions": {
+        "firstLaunchSettingsVisible": true,
+        "trayAndPerMonitorOverlays": true,
+        "hooksInstalled": true,
+        "defaultF8": true,
+        "pointerProbeReceivesBaseline": true,
+        "nativeKeyDownHeld": true,
+        "nativeMouseMovePaintsWithoutButton": true,
+        "layeredOverlayRendered": true,
+        "mouseMovePassesThroughOverlay": true,
+        "heldButtonsAndWheelSuppressed": true,
+        "nativeKeyUpRestoresImmediately": true,
+        "releaseFadeInProgress": true,
+        "matchingSuppressedUpAfterRelease": true,
+        "releasedButtonsAndWheelPassThrough": true,
+        "nativeReholdCancelsFade": true,
+        "fadeClearsGeometry": true,
+        "pauseRemovesBothHooks": true,
+        "pausePersisted": true,
+        "pausedInputCannotDraw": true,
+        "reenableInstallsHooks": true,
+        "reenabledDraws": true,
+        "disableDuringHoldReleasesInput": true
+      },
+      "portableZipExecuted": true,
+      "installedFirstLaunchPass": true,
+      "uninstallPreferencesPreserved": true,
+      "sourceIdentityPortableAndInstalledMatches": true,
+      "runtimeCI": "https://github.com/alexfisenkov/MacMarker/actions/runs/41410330492"
+    },
+    "publishedAssetDigestsMatch": true,
+    "physicalWindows10_11Hardware": "NOT_RUN"
+  },
+  "macOS": {
+    "version": "0.1.1",
+    "codeUnchanged": true,
+    "globalLatestStill": "v0.1.1",
+    "buildSmokeCI": "https://github.com/alexfisenkov/MacMarker/actions/runs/41409410909"
+  },
+  "website": {
+    "url": "https://alexfisenkov.github.io/MacMarker/",
+    "deployment": "https://github.com/alexfisenkov/MacMarker/actions/runs/41411271199",
+    "deploymentStatus": "success",
+    "sourceReadback": {
+      "url": "https://alexfisenkov.github.io/MacMarker/",
+      "sourceSHA": "8126f78a6c417b14c668f5c19852754f04a07c9d",
+      "files": [
+        {
+          "path": "index.html",
+          "status": 200,
+          "bytes": 24271,
+          "sha256": "703e5948e215cc67982a9cce7e798b2367f56b52e33ed192df86ea34b0a87584",
+          "sourceMatches": true
+        },
+        {
+          "path": "legal.html",
+          "status": 200,
+          "bytes": 17777,
+          "sha256": "683de24d36389c99e94541a15117b850ba58e68e8da1902600765917d9ff7e66",
+          "sourceMatches": true
+        },
+        {
+          "path": "assets/MacMarker.png",
+          "status": 200,
+          "bytes": 61153,
+          "sha256": "cb72573ac0c5bfbe6f91b6d242363379d09f8f2a3eead217b29917712cd12ec5",
+          "sourceMatches": true
+        },
+        {
+          "path": "release-manifest.json",
+          "status": 200,
+          "bytes": 893,
+          "sha256": "4c5ad26249d0d686d566c65827c2c53e08fdf2b31e5ac0c1434bc2d082678505",
+          "sourceMatches": true
+        },
+        {
+          "path": "style-origin.json",
+          "status": 200,
+          "bytes": 564,
+          "sha256": "3ca08e454264cb5dffd52d4924c48467bab53ea7efc7733742dbeb7c9f634082",
+          "sourceMatches": true
+        }
+      ]
+    },
+    "browserQA": {
+      "browser": "CUA IAB",
+      "viewports": [
+        1440,
+        390
+      ],
+      "horizontalOverflow": false,
+      "RU_EN_toggle": "PASS",
+      "legalTabsAndHomeNavigation": "PASS",
+      "imagesLoaded": true,
+      "consoleErrors": 0
+    },
+    "publishedDownloadMetadataCheck": "PASS: Mac0.1.1 and Windows0.2.0 installer+ZIP"
+  },
+  "history": {
+    "initialCI": "41409410909",
+    "initialNativeFailure": "mouseMovePassesThroughOverlay; previous receipt could not distinguish receiver focus/z-order from routing failure",
+    "repair": "Deterministic native probe/diagnostics and reasserted nonactivating overlay z-order; original check retained; focused Windows-only rerun passed.",
+    "passedMacSiteSourceUnchangedInRepair": true
+  },
+  "limitations": [
+    "Windows package is unsigned; no Authenticode certificate.",
+    "Physical Windows10/11 mouse/keyboard, mixed DPI, elevated/secure desktops and interactive SmartScreen are not claimed from Server2025 CI."
+  ],
+  "review": "Project owner fast policy: no critic agents or broad review; targeted local/native/publishing checks only."
+}
