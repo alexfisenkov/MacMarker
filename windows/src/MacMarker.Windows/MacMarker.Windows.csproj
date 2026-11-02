@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms><EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <AssemblyName>MacMarker</AssemblyName><RootNamespace>MacMarker.Windows</RootNamespace>
+    <Version>0.2.0</Version><AssemblyVersion>0.2.0.0</AssemblyVersion><FileVersion>0.2.0.0</FileVersion>
+    <Authors>Alexander Fisenkov</Authors><Copyright>Copyright ©2026 Alexander Fisenkov</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression><ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>../../assets/MacMarker.ico</ApplicationIcon>
+    <PublishTrimmed>false</PublishTrimmed><DebugType>none</DebugType><DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../MacMarker.Core/MacMarker.Core.csproj" /><EmbeddedResource Include="../../assets/MacMarker.ico" LogicalName="MacMarker.Icon.ico" /></ItemGroup>
+</Project>
