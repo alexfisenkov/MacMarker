@@ -15,7 +15,7 @@ internal sealed class MarkerApplication : ApplicationContext
     private readonly Stopwatch clock = Stopwatch.StartNew();
     private long lastRevision = -1;
     private double lastAlpha = -1;
-    private bool closing, rebuilding;
+    private bool closing, rebuilding, wasDrawing;
     internal readonly MarkSession Session = new();
     internal readonly InputHooks Hooks;
     internal MarkerSettings Settings { get; private set; }
@@ -80,6 +80,8 @@ internal sealed class MarkerApplication : ApplicationContext
             Hooks.ClearRecorded(); SettingsWindow?.ReceiveShortcut(keys);
             if (!Settings.Enabled) Hooks.Dispose();
         }
+        if (Session.IsDrawing && !wasDrawing) RaiseOverlays();
+        wasDrawing = Session.IsDrawing;
         var alpha = Session.Opacity(Now);
         if (lastRevision == Session.Revision && Math.Abs(lastAlpha - alpha) < .002) return;
         try { foreach (var overlay in overlays) overlay.Render(Session, Settings, alpha); }
@@ -110,6 +112,7 @@ internal sealed class MarkerApplication : ApplicationContext
         };
         SettingsWindow.Show();
     }
+    internal void RaiseOverlays() { foreach (var overlay in overlays) overlay.RaiseWithoutActivation(); }
     internal void ToggleFromTray() => enabledItem.PerformClick();
     internal void SetEnabled(bool enabled)
     {

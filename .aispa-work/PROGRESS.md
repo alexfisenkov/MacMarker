@@ -38,3 +38,5 @@
 - Дизайн/план: `docs/superpowers/specs/2026-11-02-windows-and-website-design.md`, `docs/superpowers/plans/2026-11-02-windows-and-website.md`.
 - Сайт адаптирует проверенный live MacSwitcher/MacDictate стиль, Pages provisioned с workflow build; локальные1440/390, RU/EN и legal navigation PASS. Публикация ждёт Windows assets.
 - Windows0.2.0: .NET10/Core+WinForms, F8 default, мышь без нажатия кнопки, fade1.4sec, четыре настройки, on/off tray. Mac0.1.1 не менялся. Финальные native CI и выпуск ещё не выполнены.
+
+- Первый финальный CI41409410909: Mac+сайт PASS, WindowsCore+публикацияEXE/установщика PASS; nativeF8+mousemove+layeredrender PASS, проверка mouseMovePassesThroughOverlay FAIL. Публикация Windows не выполнялась. Причина исправляется в windows/**; повтор будет Windows-only, без повторения уже зелёных Mac/site jobs.

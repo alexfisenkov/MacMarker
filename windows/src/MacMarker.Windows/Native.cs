@@ -15,6 +15,9 @@ internal static class Native
     [DllImport("user32.dll", SetLastError = true)] [return: MarshalAs(UnmanagedType.Bool)] internal static extern bool UnhookWindowsHookEx(nint hook);
     [DllImport("user32.dll")] internal static extern nint CallNextHookEx(nint hook, int code, nuint message, nint data);
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode)] internal static extern nint GetModuleHandle(string? name);
+    [DllImport("user32.dll")] internal static extern nint GetForegroundWindow();
+    [DllImport("user32.dll")] internal static extern nint WindowFromPoint(Point point);
+    [DllImport("user32.dll")] [return: MarshalAs(UnmanagedType.Bool)] internal static extern bool GetCursorPos(out Point point);
     [DllImport("user32.dll")] internal static extern short GetAsyncKeyState(int key);
     [DllImport("user32.dll")] internal static extern nint GetDC(nint window);
     [DllImport("user32.dll")] internal static extern int ReleaseDC(nint window, nint dc);

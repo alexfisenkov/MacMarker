@@ -2,12 +2,22 @@ name: Manual verification
 
 on:
   workflow_dispatch:
+    inputs:
+      scope:
+        description: Verification scope (Windows-only for a focused native repair)
+        required: false
+        default: all
+        type: choice
+        options:
+          - all
+          - windows
 
 permissions:
   contents: read
 
 jobs:
   verify:
+    if: inputs.scope != 'windows'
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
@@ -88,6 +98,7 @@ jobs:
 
   website:
     name: Product site checks
+    if: inputs.scope != 'windows'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

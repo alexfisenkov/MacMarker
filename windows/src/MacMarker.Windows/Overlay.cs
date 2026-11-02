@@ -30,8 +30,9 @@ internal sealed class Overlay : Form
         surface = new Bitmap(bounds.Width, bounds.Height, bounds.Width * 4, PixelFormat.Format32bppPArgb, bits);
         Render(new MarkSession(), new MarkerSettings(), 0);
         Show();
-        Native.SetWindowPos(Handle, -1, bounds.X, bounds.Y, bounds.Width, bounds.Height, 0x10);
+        RaiseWithoutActivation();
     }
+    internal void RaiseWithoutActivation() => Native.SetWindowPos(Handle, -1, monitor.X, monitor.Y, monitor.Width, monitor.Height, 0x10);
     protected override bool ShowWithoutActivation => true;
     protected override CreateParams CreateParams
     {

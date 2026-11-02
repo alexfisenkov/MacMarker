@@ -12,6 +12,7 @@ internal static class SmokeTest
     {
         var checks = new Dictionary<string, bool>();
         string? error = null;
+        object? pointerDiagnostics = null;
         void Check(string name, bool value) { checks[name] = value; if (!value) throw new InvalidOperationException(name); }
         try
         {
@@ -21,12 +22,30 @@ internal static class SmokeTest
             app.SettingsWindow!.Close(); await Task.Delay(150);
             Check("hooksInstalled", app.Hooks.Installed);
             Check("defaultF8", app.Settings.Shortcut.Keys.SequenceEqual([0x77]));
-            using var probe = new PointerProbe(); probe.Show(); await Task.Delay(100);
+            using var probe = new PointerProbe();
+            probe.Show(); probe.Activate(); app.RaiseOverlays(); await Task.Delay(150);
+            // Show() alone does not guarantee that this receiver is above the runner console.
+            // First establish the real native destination, then reset counters so baseline input
+            // cannot satisfy any held-input assertion. The actual overlay remains above the probe.
+            Move(-20, -20); await Task.Delay(100);
+            Native.GetCursorPos(out var baselineCursor);
+            pointerDiagnostics = new { stage = "baseline", cursor = new { baselineCursor.X, baselineCursor.Y },
+                hit = Native.WindowFromPoint(baselineCursor).ToInt64(), foreground = Native.GetForegroundWindow().ToInt64(),
+                probe = probe.Handle.ToInt64(), bounds = probe.Bounds.ToString(), client = probe.RectangleToScreen(probe.ClientRectangle).ToString(),
+                moves = probe.Moves, thread = Environment.CurrentManagedThreadId, syncContext = SynchronizationContext.Current?.GetType().Name };
+            Check("pointerProbeReceivesBaseline", probe.Moves > 0);
+            Pointer(2); Pointer(4); await Task.Delay(100);
             Key(false); await Task.Delay(150);
             Check("nativeKeyDownHeld", app.Session.IsDrawing && app.Hooks.KeyTransitions > 0);
+            probe.ResetCounters();
             Move(20, 10); await Task.Delay(100); Move(15, 8); await Task.Delay(100);
             Check("nativeMouseMovePaintsWithoutButton", app.Session.Strokes.Any(s => s.Points.Count >= 2) && app.Hooks.MouseMoves > 0);
             Check("layeredOverlayRendered", app.RenderedFrames > 1 && app.LastError is null);
+            Native.GetCursorPos(out var heldCursor);
+            pointerDiagnostics = new { stage = "held", cursor = new { heldCursor.X, heldCursor.Y },
+                hit = Native.WindowFromPoint(heldCursor).ToInt64(), foreground = Native.GetForegroundWindow().ToInt64(),
+                probe = probe.Handle.ToInt64(), bounds = probe.Bounds.ToString(), client = probe.RectangleToScreen(probe.ClientRectangle).ToString(),
+                moves = probe.Moves, thread = Environment.CurrentManagedThreadId, syncContext = SynchronizationContext.Current?.GetType().Name };
             Check("mouseMovePassesThroughOverlay", probe.Moves > 0);
             Pointer(2); Pointer(0x800, 120); await Task.Delay(100);
             Check("heldButtonsAndWheelSuppressed", probe.Downs == 0 && probe.Wheels == 0);
@@ -56,7 +75,7 @@ internal static class SmokeTest
             Directory.CreateDirectory(Path.GetDirectoryName(receipt)!);
             File.WriteAllText(receipt, JsonSerializer.Serialize(new
             {
-                schemaVersion = 1, pass = error is null, error, checks,
+                schemaVersion = 1, pass = error is null, error, checks, pointerDiagnostics,
                 version = typeof(Program).Assembly.GetName().Version?.ToString(),
                 sourceVersion = typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
                 desktop = "isolated-ci-native-SendInput", os = Environment.OSVersion.ToString(),
@@ -71,10 +90,11 @@ internal static class SmokeTest
         public int Moves, Downs, Ups, Wheels;
         public PointerProbe()
         {
-            Text = "MacMarker CI pointer probe"; ShowInTaskbar = false; StartPosition = FormStartPosition.Manual;
+            Text = "MacMarker CI pointer probe"; TopMost = true; ShowInTaskbar = false; StartPosition = FormStartPosition.Manual;
             var screen = Screen.PrimaryScreen!.Bounds;
             Bounds = new Rectangle(screen.Left + screen.Width / 2 - 160, screen.Top + screen.Height / 2 - 100, 320, 240);
         }
+        public void ResetCounters() { Moves = Downs = Ups = Wheels = 0; }
         protected override void WndProc(ref Message message)
         {
             switch (message.Msg) { case 0x200: Moves++; break; case 0x201: case 0x203: Downs++; break; case 0x202: Ups++; break; case 0x20A: Wheels++; break; }
