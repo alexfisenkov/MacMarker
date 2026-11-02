@@ -44,3 +44,55 @@ jobs:
           name: MacMarker-unsigned-macos
           path: dist/MacMarker-unsigned.zip
           if-no-files-found: error
+
+  windows:
+    name: Windows build and native runtime
+    runs-on: windows-2025
+    timeout-minutes: 30
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.402'
+      - name: Core behavior
+        run: dotnet run --project windows/tests/MacMarker.Core.Tests/MacMarker.Core.Tests.csproj -c Release
+      - name: Ensure installer compiler
+        shell: pwsh
+        run: |
+          $compiler = Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6/ISCC.exe'
+          if (!(Test-Path $compiler)) {
+            choco install innosetup -y --no-progress
+            if ($LASTEXITCODE -ne 0) { throw 'Inno Setup installation failed' }
+          }
+      - name: Publish self-contained app and packages
+        shell: pwsh
+        run: ./windows/scripts/build.ps1 -OutputDirectory windows/dist
+      - name: Native hold, mouse, fade and pause
+        shell: pwsh
+        run: ./windows/scripts/smoke.ps1 -Executable windows/dist/app/MacMarker.exe -Receipt windows/dist/native-smoke.json -CiDesktop
+      - name: Installed first launch and uninstall preservation
+        shell: pwsh
+        run: ./windows/scripts/test-install.ps1 -Installer windows/dist/MacMarker-0.2.0-windows-x64-setup.exe -Receipt windows/dist/install-smoke.json -CiDesktop
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MacMarker-windows-x64
+          path: |
+            windows/dist/MacMarker-0.2.0-windows-x64-setup.exe
+            windows/dist/MacMarker-0.2.0-windows-x64.zip
+            windows/dist/*-smoke.json
+            windows/dist/*manifest*.json
+          if-no-files-found: error
+
+  website:
+    name: Product site checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: HTML, links and JavaScript
+        run: python3 script/check_website.py --javascript

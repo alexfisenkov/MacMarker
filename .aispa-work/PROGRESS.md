@@ -32,3 +32,9 @@
 - Локальный syntax check упёрся в ранее известный неисправный CLT (duplicate SwiftBridging module), системные SDK не менялись.
 
 - Приёмка обновления0.1.1: «Проверил, включение и выключение работают. Всё отлично, задача завершена.» (2026-10-30T14:49:41+08:00). Открытых задач по переключателю нет.
+
+## В работе 2026-11-02 — сайт и Windows
+- Запрос владельца: сайт в том же стиле, что остальные продукты, и полноценная Windows-версия. Уточнено: только мышь, без планшетов; удержание клавиши и движение мыши рисует без клика.
+- Дизайн/план: `docs/superpowers/specs/2026-11-02-windows-and-website-design.md`, `docs/superpowers/plans/2026-11-02-windows-and-website.md`.
+- Сайт адаптирует проверенный live MacSwitcher/MacDictate стиль, Pages provisioned с workflow build; локальные1440/390, RU/EN и legal navigation PASS. Публикация ждёт Windows assets.
+- Windows0.2.0: .NET10/Core+WinForms, F8 default, мышь без нажатия кнопки, fade1.4sec, четыре настройки, on/off tray. Mac0.1.1 не менялся. Финальные native CI и выпуск ещё не выполнены.

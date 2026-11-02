@@ -13,3 +13,10 @@ dist/
 __pycache__/
 node_modules/
 .aispa-work/serve.*
+
+# Windows build and native test output
+windows/**/bin/
+windows/**/obj/
+windows/dist/
+windows/.test-data/
+windows/.runtime-build/

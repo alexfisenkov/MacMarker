@@ -1,0 +1,9 @@
+{
+  "style_repository": "alexfisenkov/MacSwitcher",
+  "style_commit": "f269821d170d9c9cfaac21662fb297774873e986",
+  "index_sha256": "06a5424c49db34be90693ddea39f589563978a22e976bf37a531d6eecfc8c47e",
+  "legal_sha256": "660182b1874ab443f525e17710bde2026bb1f499a518d77de9c4cb35ffba2959",
+  "adaptation": "Family CSS/layout reused literally; MacMarker content, two-platform downloads, focus/anchor targets added.",
+  "icon_source": "MacMarker.app/Contents/Resources/AppIcon.icns",
+  "icon_sha256": "cb72573ac0c5bfbe6f91b6d242363379d09f8f2a3eead217b29917712cd12ec5"
+}

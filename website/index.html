@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="Зажмите клавишу и рисуйте поверх экрана. MacMarker для Mac и Windows: цвет, толщина и исчезающие через 1,4 секунды линии. Работает локально.">
+  <title>MacMarker — рисуйте поверх экрана на Mac и Windows</title>
+  <link rel="canonical" href="https://alexfisenkov.github.io/MacMarker/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alexfisenkov.github.io/MacMarker/">
+  <meta property="og:title" content="MacMarker — рисуйте поверх экрана на Mac и Windows">
+  <meta property="og:description" content="Зажмите клавишу и рисуйте поверх экрана. MacMarker для Mac и Windows: цвет, толщина и исчезающие через 1,4 секунды линии. Работает локально.">
+  <meta property="og:image" content="https://alexfisenkov.github.io/MacMarker/assets/MacMarker.png">
+  <meta property="og:image:alt" content="MacMarker">
+  <meta property="og:locale" content="ru_RU">
+  <link rel="icon" href="./assets/MacMarker.png" type="image/png">
+  <link rel="apple-touch-icon" href="./assets/MacMarker.png">
+  <style>
+    :root { color-scheme: dark; --brand:#007aff; --ink:#0a0a0a; --muted:#9ca3af; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--ink); color:#fff; font-family:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+    ::selection { background:var(--brand); color:white; }
+    a { color:inherit; }
+    .glass { background:rgba(255,255,255,.05); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.1); }
+    .nav { position:fixed; z-index:5; inset:0 0 auto; border:1px solid rgba(255,255,255,.1); }
+    .nav-inner,.container { width:min(100% - 2rem,80rem); margin:auto; }
+    .nav-row { min-height:4rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand { display:flex; align-items:center; gap:.55rem; font-size:1.25rem; font-weight:700; letter-spacing:-.025em; text-decoration:none; white-space:nowrap; }
+    .brand img { width:2rem; height:2rem; }
+    .nav-links { display:flex; align-items:center; gap:1.1rem; }
+    .nav-links a,.footer a { color:#d1d5db; text-decoration:none; transition:color .2s; }
+    .nav-links a:hover,.footer a:hover { color:white; }
+    .nav-link { display:inline-flex; align-items:center; min-height:44px; font-size:.875rem; }
+    .nav-setup { font-size:1rem; }
+    .button { min-height:44px; display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.8rem 1.3rem; border:0; border-radius:.8rem; color:#fff; background:var(--brand); font:inherit; font-weight:650; text-decoration:none; cursor:pointer; transition:background .2s,transform .2s,box-shadow .2s; }
+    .button:hover { background:#0869d1; }
+    .button-hero { padding:1rem 2rem; border-radius:1rem; font-size:1.125rem; line-height:1.5556; font-weight:700; box-shadow:0 0 20px rgba(0,122,255,.4); }
+    .button-hero:hover { transform:translateY(-3px); box-shadow:0 0 30px rgba(0,122,255,.6); }
+    .button-secondary { padding:1rem 2rem; border-radius:1rem; background:rgba(255,255,255,.1); font-size:1.125rem; line-height:1.5556; font-weight:500; }
+    .button-secondary:hover { background:rgba(255,255,255,.2); }
+    .nav-cta { padding:.5rem 1rem; border-radius:.5rem; font-size:.875rem; line-height:1.25rem; font-weight:500; }
+    .lang { min-width:44px; min-height:44px; font-size:.875rem; padding:.6rem .8rem; border:0; border-radius:999px; color:white; background:rgba(255,255,255,.1); font:inherit; cursor:pointer; }
+    .lang:hover { background:rgba(255,255,255,.2); }
+    .hero { padding:8rem 1rem 5rem; text-align:center; }
+    .hero-inner { max-width:56rem; margin:auto; }
+    h1 { margin:0 0 2rem; font-size:3rem; line-height:3rem; letter-spacing:-.025em; font-weight:800; }
+    .gradient { color:transparent; background:linear-gradient(90deg,#60a5fa,#a855f7); background-clip:text; -webkit-background-clip:text; }
+    .lead { max-width:42rem; margin:0 auto 2.5rem; color:var(--muted); font-size:1.25rem; line-height:1.75rem; }
+    .actions { display:flex; flex-wrap:wrap; justify-content:center; gap:1rem; }
+    .hero-note { margin:1.5rem 0 0; color:#d1d5db; font-size:1rem; line-height:1.5rem; }
+    .section { padding:5rem 0; }
+    .features { background:rgba(0,0,0,.5); }
+    h2 { margin:0 0 4rem; text-align:center; font-size:1.875rem; line-height:2.25rem; letter-spacing:0; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; }
+    .card { min-height:100%; padding:2rem; border-radius:1.5rem; }
+    .icon { margin-bottom:1rem; font-size:2.25rem; line-height:1.1111; }
+    h3 { margin:0 0 .75rem; font-size:1.25rem; line-height:1.75rem; }
+    .card p,.setup-copy { margin:0; color:var(--muted); line-height:1.625; }
+    .setup { padding-top:6rem; padding-bottom:6rem; text-align:center; }
+    .setup-inner { max-width:48rem; margin:auto; }
+    .setup-copy { margin:0 auto 1.75rem; font-size:1.1rem; }
+    .limit { margin:1.5rem 0 0; color:var(--muted); font-size:.95rem; line-height:1.65; }
+    .help { margin:2rem 0 0; color:var(--muted); }
+    .help a { display:inline-flex; align-items:center; min-height:44px; color:#60a5fa; }
+    .footer { margin-top:2.5rem; padding:3rem 0; border-top:1px solid rgba(255,255,255,.1); }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
+    .copyright { color:#9ca3af; font-size:.875rem; }
+    .footer-links { display:flex; flex-wrap:wrap; justify-content:center; gap:.25rem 1.5rem; font-size:.875rem; }
+    .footer-links a { display:inline-flex; align-items:center; min-height:44px; }
+    @media(min-width:768px) { h1 { font-size:4.5rem; line-height:4.5rem; } h2 { font-size:2.25rem; line-height:2.5rem; } }
+    @media(max-width:767px) { .grid { grid-template-columns:1fr; } .footer-inner { flex-direction:column; text-align:center; } }
+    @media(max-width:639px) { .nav-links { gap:.45rem; } .nav-features,.nav-cta { display:none!important; } .actions { flex-direction:column; align-items:stretch; } .actions .button { width:100%; } }
+    @media(max-width:360px) { .nav-row { gap:.5rem; } .brand { gap:.375rem; font-size:1.0625rem; } .brand img { width:1.75rem; height:1.75rem; } .nav-links { gap:.25rem; } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+      /* Product adaptation: keep the family layout and improve keyboard/anchor targets. */
+    a:focus-visible,button:focus-visible { outline:2px solid #93c5fd; outline-offset:4px; }
+    .brand { min-height:44px; }
+    #features,#download { scroll-margin-top:5rem; }
+    .platform-setup + .platform-setup { margin-top:3rem; }
+    .platform-setup h3 { margin-bottom:1rem; }
+    .limit a { display:inline-flex; align-items:center; min-height:44px; }
+  </style>
+</head>
+<body>
+  <nav class="nav glass" aria-label="Основная навигация" data-nav-aria>
+    <div class="nav-inner"><div class="nav-row">
+      <a class="brand" href="#top"><img src="./assets/MacMarker.png" width="32" height="32" alt=""><span>MacMarker</span></a>
+      <div class="nav-links">
+        <a class="nav-link nav-features" href="#features" data-i18n="nav_features">Функции</a>
+        <a class="nav-link nav-setup" href="#download" data-i18n="nav_setup">Установка</a>
+        <button id="langToggle" class="lang" type="button" aria-label="Переключить на английский">EN</button>
+        <a class="button nav-cta" href="#download" data-i18n="nav_download">Скачать</a>
+      </div>
+    </div></div>
+  </nav>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <h1><span class="gradient" data-i18n="hero_gradient">Рисуйте</span> <span data-i18n="hero_title">поверх экрана</span></h1>
+        <p class="lead" data-i18n="hero_subtitle">Зажмите клавишу и выделяйте важное во время объяснения. На Windows просто ведите мышью; на Mac рисуйте мышью или Apple Pencil через Sidecar.</p>
+        <div class="actions">
+          <a class="button button-hero" href="https://github.com/alexfisenkov/MacMarker/releases/download/v0.1.1/MacMarker-0.1.1-macOS-arm64.zip" data-platform="macos" data-i18n="btn_mac">Скачать для Mac · 0.1.1</a>
+          <a class="button button-hero" href="https://github.com/alexfisenkov/MacMarker/releases/download/v0.2.0/MacMarker-0.2.0-windows-x64-setup.exe" data-platform="windows" data-i18n="btn_windows">Скачать для Windows · 0.2.0</a>
+          <a class="button button-secondary" href="#download" data-i18n="btn_install">Как установить</a>
+        </div>
+        <p class="hero-note" data-i18n="hero_compat">macOS 13+ · Apple silicon / Windows 10 и 11 · x64</p>
+      </div>
+    </section>
+    <section id="features" class="section features">
+      <div class="container">
+        <h2 data-i18n="features_title">Показывайте то, что важно</h2>
+        <div class="grid">
+          <article class="card glass"><div class="icon" aria-hidden="true">⌥</div><h3 data-i18n="feature1_title">Держите клавишу и рисуйте</h3><p data-i18n="feature1_desc">На Windows удерживайте F8 и двигайте мышью — нажимать её кнопки не нужно. На Mac удерживайте правый Option и рисуйте с зажатой кнопкой мыши или касанием Pencil в Sidecar.</p></article>
+          <article class="card glass"><div class="icon" aria-hidden="true">✦</div><h3 data-i18n="feature2_title">Настройте под себя</h3><p data-i18n="feature2_desc">Выберите цвет, прозрачность, толщину линии и удобную клавишу. Выключайте маркер из меню или трея: обработка ввода останавливается, выбор сохраняется между запусками.</p></article>
+          <article class="card glass"><div class="icon" aria-hidden="true">⌂</div><h3 data-i18n="feature3_title">Линии исчезают сами</h3><p data-i18n="feature3_desc">Отпустите клавишу — обычный ввод вернётся сразу, а линии исчезнут за 1,4 секунды. MacMarker не записывает экран и не отправляет данные в сеть. Линии хранятся только в оперативной памяти.</p></article>
+        </div>
+      </div>
+    </section>
+    <section id="download" class="section setup">
+      <div class="container setup-inner">
+        <h2 data-i18n="setup_title">Установите MacMarker</h2>
+        <div class="platform-setup">
+          <h3 data-i18n="mac_title">На Mac</h3>
+          <p class="setup-copy" data-i18n="mac_steps">Скачайте и распакуйте ZIP. Перенесите MacMarker.app в «Программы» и откройте его. Разрешите «Универсальный доступ» в «Системные настройки → Конфиденциальность и безопасность», для управления маркером с клавиатуры.</p>
+          <a class="button button-hero" href="https://github.com/alexfisenkov/MacMarker/releases/download/v0.1.1/MacMarker-0.1.1-macOS-arm64.zip" data-platform="macos" data-i18n="btn_mac">Скачать для Mac · 0.1.1</a>
+          <p class="limit" data-i18n="mac_note">Версия 0.1.1 для Apple silicon подписана разработчиком и прошла проверку Apple (notarization). Для Pencil нужен Sidecar от Apple; совместимость зависит от Mac и iPad.</p>
+        </div>
+        <div class="platform-setup">
+          <h3 data-i18n="windows_title">На Windows</h3>
+          <p class="setup-copy" data-i18n="windows_steps">Скачайте установщик для Windows 10 (сборка 19041+) или Windows 11 x64, откройте его и завершите установку. Запустите MacMarker: значок появится в трее. Удерживайте F8 и двигайте мышью. Клавишу и вид линии можно изменить в настройках.</p>
+          <a class="button button-hero" href="https://github.com/alexfisenkov/MacMarker/releases/download/v0.2.0/MacMarker-0.2.0-windows-x64-setup.exe" data-platform="windows" data-i18n="btn_windows">Скачать для Windows · 0.2.0</a>
+          <p class="limit"><a href="https://github.com/alexfisenkov/MacMarker/releases/download/v0.2.0/MacMarker-0.2.0-windows-x64.zip" data-platform="windows-portable" data-i18n="portable_zip">ZIP без установки · Windows x64</a></p>
+          <p class="limit" data-i18n="windows_note">Версия 0.2.0 не имеет цифровой подписи Windows, поэтому система может показать предупреждение об издателе. Перед запуском проверьте источник и контрольную сумму выпуска. Работа на защищённых системных экранах не поддерживается.</p>
+        </div>
+        <p class="limit"><a href="https://github.com/alexfisenkov/MacMarker/releases" data-i18n="all_releases">Все выпуски и контрольные суммы</a> · <a href="https://github.com/alexfisenkov/MacMarker" data-i18n="source_code">Исходный код</a> · <a href="https://github.com/alexfisenkov/MacMarker/issues" data-i18n="issues">Сообщить о проблеме</a></p>
+        <p class="help"><span data-i18n="help">Нужна помощь?</span> <a href="mailto:a.fisenkov@gmail.com">a.fisenkov@gmail.com</a></p>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="copyright">© <span id="year"></span> Alexander Fisenkov · MacMarker</div>
+      <div class="footer-links">
+        <a href="./legal.html#privacy" class="legal-link" data-i18n="privacy">Конфиденциальность</a>
+        <a href="./legal.html#terms" class="legal-link" data-i18n="terms">Условия использования</a>
+        <a href="mailto:a.fisenkov@gmail.com" data-i18n="contact">Контакты</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const translations = {
+  "ru": {
+    "title": "MacMarker — рисуйте поверх экрана на Mac и Windows",
+    "description": "Зажмите клавишу и рисуйте поверх экрана. MacMarker для Mac и Windows: цвет, толщина и исчезающие через 1,4 секунды линии. Работает локально.",
+    "nav_aria": "Основная навигация",
+    "switch_to": "Переключить на английский",
+    "nav_features": "Функции",
+    "nav_setup": "Установка",
+    "nav_download": "Скачать",
+    "hero_gradient": "Рисуйте",
+    "hero_title": "поверх экрана",
+    "hero_subtitle": "Зажмите клавишу и выделяйте важное во время объяснения. На Windows просто ведите мышью; на Mac рисуйте мышью или Apple Pencil через Sidecar.",
+    "btn_mac": "Скачать для Mac · 0.1.1",
+    "btn_windows": "Скачать для Windows · 0.2.0",
+    "btn_install": "Как установить",
+    "hero_compat": "macOS 13+ · Apple silicon / Windows 10 и 11 · x64",
+    "features_title": "Показывайте то, что важно",
+    "feature1_title": "Держите клавишу и рисуйте",
+    "feature1_desc": "На Windows удерживайте F8 и двигайте мышью — нажимать её кнопки не нужно. На Mac удерживайте правый Option и рисуйте с зажатой кнопкой мыши или касанием Pencil в Sidecar.",
+    "feature2_title": "Настройте под себя",
+    "feature2_desc": "Выберите цвет, прозрачность, толщину линии и удобную клавишу. Выключайте маркер из меню или трея: обработка ввода останавливается, выбор сохраняется между запусками.",
+    "feature3_title": "Линии исчезают сами",
+    "feature3_desc": "Отпустите клавишу — обычный ввод вернётся сразу, а линии исчезнут за 1,4 секунды. MacMarker не записывает экран и не отправляет данные в сеть. Линии хранятся только в оперативной памяти.",
+    "setup_title": "Установите MacMarker",
+    "mac_title": "На Mac",
+    "mac_steps": "Скачайте и распакуйте ZIP. Перенесите MacMarker.app в «Программы» и откройте его. Разрешите «Универсальный доступ» в «Системные настройки → Конфиденциальность и безопасность», для управления маркером с клавиатуры.",
+    "mac_note": "Версия 0.1.1 для Apple silicon подписана разработчиком и прошла проверку Apple (notarization). Для Pencil нужен Sidecar от Apple; совместимость зависит от Mac и iPad.",
+    "windows_title": "На Windows",
+    "windows_steps": "Скачайте установщик для Windows 10 (сборка 19041+) или Windows 11 x64, откройте его и завершите установку. Запустите MacMarker: значок появится в трее. Удерживайте F8 и двигайте мышью. Клавишу и вид линии можно изменить в настройках.",
+    "windows_note": "Версия 0.2.0 не имеет цифровой подписи Windows, поэтому система может показать предупреждение об издателе. Перед запуском проверьте источник и контрольную сумму выпуска. Работа на защищённых системных экранах не поддерживается.",
+    "portable_zip": "ZIP без установки · Windows x64",
+    "all_releases": "Все выпуски и контрольные суммы",
+    "source_code": "Исходный код",
+    "issues": "Сообщить о проблеме",
+    "help": "Нужна помощь?",
+    "privacy": "Конфиденциальность",
+    "terms": "Условия использования",
+    "contact": "Контакты"
+  },
+  "en": {
+    "title": "MacMarker — draw over your screen on Mac and Windows",
+    "description": "Hold a key and draw over your screen. MacMarker for Mac and Windows offers custom colors, widths, and strokes that fade in 1.4 seconds. Works locally.",
+    "nav_aria": "Main navigation",
+    "switch_to": "Switch to Russian",
+    "nav_features": "Features",
+    "nav_setup": "Setup",
+    "nav_download": "Download",
+    "hero_gradient": "Draw",
+    "hero_title": "over your screen",
+    "hero_subtitle": "Hold a key and highlight what matters while you explain. On Windows, just move your mouse; on Mac, draw with your mouse or Apple Pencil through Sidecar.",
+    "btn_mac": "Download for Mac · 0.1.1",
+    "btn_windows": "Download for Windows · 0.2.0",
+    "btn_install": "How to install",
+    "hero_compat": "macOS 13+ · Apple silicon / Windows 10 and 11 · x64",
+    "features_title": "Show what matters",
+    "feature1_title": "Hold a key and draw",
+    "feature1_desc": "On Windows, hold F8 and move your mouse — no mouse button needed. On Mac, hold Right Option and draw with a mouse button held or with Pencil contact in Sidecar.",
+    "feature2_title": "Make it yours",
+    "feature2_desc": "Choose the color, opacity, stroke width, and hold key. Pause the marker from the menu bar or system tray: input handling stops, and your choice is remembered between launches.",
+    "feature3_title": "Strokes fade on their own",
+    "feature3_desc": "Release the key: normal input returns immediately, and strokes fade in 1.4 seconds. MacMarker does not record your screen or send data over the network. Strokes stay in memory only.",
+    "setup_title": "Install MacMarker",
+    "mac_title": "On Mac",
+    "mac_steps": "Download and unzip the archive. Move MacMarker.app to Applications and open it. Allow Accessibility in System Settings → Privacy & Security so the hold key can work across apps.",
+    "mac_note": "Version 0.1.1 for Apple silicon is signed by the developer and notarized by Apple. Pencil requires Apple Sidecar; compatibility depends on your Mac and iPad.",
+    "windows_title": "On Windows",
+    "windows_steps": "Download the installer for Windows 10 (build 19041+) or Windows 11 x64, open it, and complete setup. Launch MacMarker: its icon appears in the system tray. Hold F8 and move your mouse. Change the hold key and stroke style in Settings.",
+    "windows_note": "Version 0.2.0 has no Windows digital signature, so Windows may show a publisher warning. Check the release source and checksum before running it. Protected system screens are not supported.",
+    "portable_zip": "Portable ZIP · Windows x64",
+    "all_releases": "All releases and checksums",
+    "source_code": "Source code",
+    "issues": "Report an issue",
+    "help": "Need help?",
+    "privacy": "Privacy",
+    "terms": "Terms of use",
+    "contact": "Contact"
+  }
+};
+    const requestedLang = new URLSearchParams(location.search).get('lang');
+    let currentLang = ['ru', 'en'].includes(requestedLang) ? requestedLang : 'ru';
+    function setLanguage(lang, updateUrl = false) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach((element) => {
+        const value = translations[lang][element.dataset.i18n];
+        if (value) element.textContent = value;
+      });
+      document.title = translations[lang].title;
+      document.querySelector('[data-nav-aria]').setAttribute('aria-label', translations[lang].nav_aria);
+      document.getElementById('langToggle').setAttribute('aria-label', translations[lang].switch_to);
+      document.querySelector('meta[name="description"]').content = translations[lang].description;
+      document.querySelector('meta[property="og:title"]').content = translations[lang].title;
+      document.querySelector('meta[property="og:description"]').content = translations[lang].description;
+      document.querySelector('meta[property="og:locale"]').content = lang === 'ru' ? 'ru_RU' : 'en_US';
+      document.getElementById('langToggle').textContent = lang === 'ru' ? 'EN' : 'RU';
+      document.querySelectorAll('.legal-link').forEach((link) => { link.href = `./legal.html?lang=${lang}${link.hash}`; });
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+      }
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+    setLanguage(currentLang);
+    document.getElementById('langToggle').addEventListener('click', () => setLanguage(currentLang === 'ru' ? 'en' : 'ru', true));
+  </script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 # MacMarker
 
-A native macOS menu bar app for drawing over your Mac desktop and a mirrored Sidecar display. MIT licensed; © 2026 Alexander Fisenkov.
+A native desktop marker for macOS and Windows. Hold a key to draw over the screen; release it to fade the marks. MIT licensed; © 2026 Alexander Fisenkov.
+
+[Product website](https://alexfisenkov.github.io/MacMarker/) · [Windows documentation](windows/README.md)
 
 ## Download and install
 
@@ -10,9 +12,17 @@ Download the [latest release](https://github.com/alexfisenkov/MacMarker/releases
 2. Move `MacMarker.app` to Applications and open it.
 3. When macOS asks, allow MacMarker under **System Settings → Privacy & Security → Accessibility** so it can handle the hold shortcut globally.
 
-The release download is for Apple silicon Macs. Building from source produces a native build for the Mac architecture in use.
+The Mac release download is for Apple silicon Macs. Building from source produces a native build for the Mac architecture in use.
 
-## Build and install
+### Windows
+
+Download [Windows0.2.0 installer](https://github.com/alexfisenkov/MacMarker/releases/download/v0.2.0/MacMarker-0.2.0-windows-x64-setup.exe) or [portable ZIP](https://github.com/alexfisenkov/MacMarker/releases/download/v0.2.0/MacMarker-0.2.0-windows-x64.zip). Windows10 build19041+ / Windows11 x64. The package includes its .NET runtime.
+
+Hold **F8** and move the mouse to draw — no mouse button or tablet is required. Release to restore normal input immediately and fade the marks over1.4 seconds. Settings contain color, opacity, width and a customizable hold key. The tray enable/disable command removes the global hooks when paused and remembers the choice.
+
+Windows packages are currently **unsigned**; check the published source and SHA-256. No Windows security settings need to be disabled. See [Windows build, installation and runtime boundaries](windows/README.md). Mac0.1.1 remains a separate release channel.
+
+## Build and install on macOS
 
 Requires macOS 13 or later and Xcode command line tools with Swift 6 or later.
 
@@ -33,8 +43,8 @@ Native settings let you change color, opacity, stroke width, and the hold shortc
 
 Use **Выключить маркер / Включить маркер** in the menu bar menu to pause or resume without quitting. Pausing removes the global input hook, clears marks and releases the shortcut immediately. The choice is remembered across launches; changing settings or checking permission does not resume a paused marker.
 
-MacMarker makes no network requests, does not record the screen, and keeps stroke geometry in memory only. Sidecar input is provided by macOS and behavior depends on the connected device and available shortcuts. Physical iPad and Apple Pencil acceptance has not yet been performed.
+MacMarker makes no network requests, does not record the screen, and keeps stroke geometry in memory only. Sidecar input is provided by macOS and behavior depends on the connected device and available shortcuts. The owner accepted the physical Mac/iPad behavior on2026-10-29 and the pause switch on2026-10-30. This does not establish physical Windows hardware acceptance.
 
 ## Release checks
 
-The GitHub Actions workflow is manual (`workflow_dispatch`) and produces an unsigned app archive. It does not use signing credentials or run on pushes or pull requests.
+The GitHub Actions verification workflow is manual (`workflow_dispatch`): existing Mac build/smoke, Windows Core/native/package checks and static-site validation. A separate manual Pages workflow publishes only `website/` after the download assets are public. No workflows run on push or pull requests, and no signing credentials are stored in GitHub.

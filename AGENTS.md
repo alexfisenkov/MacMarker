@@ -39,3 +39,9 @@ Native macOS menu-bar marker by Alexander Fisenkov. Hold a configurable key to d
 - App currently installed at `/Applications/MacMarker.app`; UI showed `Готов`, login registration enabled. Physical Pencil/Sidecar acceptance was subsequently confirmed by the owner on 2026-10-29 (see release-verification.json).
 
 - The owner tested menu enable/disable and accepted v0.1.1 on 2026-10-30; task complete. See `.aispa-work/updates/2026-10-30-toggle.json` for the direct confirmation.
+
+## Windows and site work (2026-11-02)
+- Current design/plan: docs/superpowers/specs/2026-11-02-windows-and-website-design.md and docs/superpowers/plans/2026-11-02-windows-and-website.md.
+- Windows is mouse-only: key held + mouse MOVE draws without clicking. Default F8, fade1.4s; existing Mac app unchanged. .NET10/Core+WinForms matches existing MacDictate Windows stack.
+- windows/** and website/** are independent worker ownership zones; parent owns workflows and root docs. No automatic CI or separate critic cycle.
+- Site must follow the live MacSwitcher/MacDictate family layout; publish via manual GitHub Pages workflow at /MacMarker/.

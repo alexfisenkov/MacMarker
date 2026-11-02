@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="Конфиденциальность и условия использования MacMarker для Mac и Windows.">
+  <title>MacMarker — юридическая информация</title>
+  <link rel="icon" href="./assets/MacMarker.png" type="image/png">
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; padding-bottom:5rem; background:#0a0a0a; color:#fff; font-family:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+    a { color:#60a5fa; }
+    .glass { background:rgba(255,255,255,.05); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.1); }
+    .nav { width:100%; margin-bottom:2.5rem; border-width:0 0 1px; }
+    .nav-inner { width:min(100% - 2rem,56rem); min-height:4.125rem; margin:auto; padding:.5rem 0; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand { min-height:44px; display:flex; align-items:center; gap:.5rem; color:white; font-size:1.25rem; font-weight:700; text-decoration:none; transition:color .2s; }
+    .brand:hover { color:#d1d5db; }
+    .brand img { width:2rem; height:2rem; }
+    .lang { min-width:44px; min-height:44px; padding:.6rem .8rem; border:0; border-radius:999px; color:white; background:rgba(255,255,255,.1); font:inherit; cursor:pointer; }
+    .lang:hover { background:rgba(255,255,255,.2); }
+    .container { width:min(100% - 2rem,56rem); margin:auto; }
+    .back { display:inline-flex; align-items:center; min-height:44px; margin-bottom:1rem; color:#d1d5db; text-decoration:none; }
+    .back:hover { color:#fff; }
+    .tablist { display:flex; flex-wrap:wrap; gap:.75rem; margin-bottom:2rem; padding-bottom:1rem; border-bottom:1px solid rgba(255,255,255,.1); }
+    .tab { min-height:44px; padding:.5rem 1rem; border:0; border-radius:.25rem; background:rgba(255,255,255,.1); color:#fff; font:inherit; cursor:pointer; transition:background .2s; }
+    .tab:hover,.tab[aria-selected="true"] { background:#007aff; }
+    .tab:focus-visible,.lang:focus-visible,.brand:focus-visible,a:focus-visible { outline:2px solid #93c5fd; outline-offset:3px; }
+    .panel { min-height:20rem; padding:2rem; border-radius:1rem; overflow-wrap:anywhere; }
+    .prose h1 { margin:0 0 1.5rem; color:#fff; font-size:2rem; line-height:1.2; font-weight:700; }
+    .prose h2 { margin:2rem 0 1rem; color:#fff; font-size:1.5rem; line-height:1.35; font-weight:700; }
+    .prose p,.prose li { color:#9ca3af; line-height:1.6; }
+    .prose p { margin:0 0 1rem; }
+    .prose ul { margin:0 0 1rem; padding-left:1.5rem; }
+    .prose li { margin-bottom:.5rem; }
+    .prose a { display:inline-flex; align-items:center; min-height:44px; }
+    [hidden] { display:none!important; }
+    @media(max-width:560px) { .nav-inner { width:min(100% - 2rem,56rem); } .panel { padding:2rem; } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <nav class="nav glass" aria-label="Основная навигация" data-nav-aria>
+    <div class="nav-inner">
+      <a class="brand" href="./index.html?lang=ru" data-home-link><img src="./assets/MacMarker.png" width="32" height="32" alt=""><span>MacMarker</span></a>
+      <button id="langToggle" class="lang" type="button" aria-label="Переключить на английский">EN</button>
+    </div>
+  </nav>
+  <main class="container">
+    <a class="back" href="./index.html?lang=ru" data-home-link data-i18n="back_home">← На главную</a>
+    <div class="tablist" role="tablist" aria-label="Юридические документы" data-tablist-aria>
+      <button id="privacy-tab" class="tab" type="button" role="tab" aria-controls="privacy" aria-selected="true" tabindex="0" data-document-tab="privacy" data-i18n="privacy_tab">Конфиденциальность</button>
+      <button id="terms-tab" class="tab" type="button" role="tab" aria-controls="terms" aria-selected="false" tabindex="-1" data-document-tab="terms" data-i18n="terms_tab">Условия использования</button>
+    </div>
+    <div class="panel glass">
+      <article id="privacy" class="prose" role="tabpanel" aria-labelledby="privacy-tab" tabindex="0">
+        <h1 data-i18n="privacy_heading">Конфиденциальность</h1>
+        <p data-i18n="privacy_1">MacMarker работает локально. Приложение не делает сетевых запросов, не записывает экран и не сохраняет содержимое клавиатурного ввода. Геометрия линий хранится только в оперативной памяти; цвет, толщина, прозрачность, клавиша и состояние включения сохраняются в настройках на вашем устройстве.</p>
+        <p data-i18n="privacy_2">На Mac системное разрешение «Универсальный доступ» нужно для глобальной клавиши и рисования. Вы управляете им в настройках macOS. На Windows используются системные обработчики клавиатуры и мыши. Выключение маркера из меню или трея останавливает обработку ввода; состояние сохраняется между запусками.</p>
+        <p data-i18n="privacy_3">Этот статический сайт не использует аналитику, рекламные трекеры, формы или cookies. Сайт размещён на GitHub Pages, а загрузки — на GitHub. GitHub может обрабатывать сетевые данные по своей политике конфиденциальности.</p>
+        <p><span data-i18n="privacy_4">По вопросам конфиденциальности и поддержки свяжитесь с автором, Александром Фисенковым: </span><a href="mailto:a.fisenkov@gmail.com">a.fisenkov@gmail.com</a></p>
+        <p><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" data-i18n="github_privacy">Политика конфиденциальности GitHub</a></p>
+      </article>
+      <article id="terms" class="prose" role="tabpanel" aria-labelledby="terms-tab" tabindex="0" hidden>
+        <h1 data-i18n="terms_heading">Условия использования</h1>
+        <p data-i18n="terms_1">MacMarker предоставляет временные линии поверх рабочего стола. На Windows рисование начинается при удержании клавиши и движении мыши. На Mac удерживайте клавишу и рисуйте мышью или Pencil через Sidecar от Apple. Работа зависит от системных разрешений и окружения; совместимость со всеми приложениями и устройствами не гарантируется.</p>
+        <p data-i18n="terms_2">Исходный код MacMarker распространяется по лицензии MIT. Автор — Alexander Fisenkov, © 2026. Приложение предоставляется «как есть», без гарантий, в пределах условий лицензии.</p>
+        <p><a href="https://github.com/alexfisenkov/MacMarker/blob/main/LICENSE" data-i18n="license_link">Лицензия MIT и исходный код</a></p>
+        <p data-i18n="terms_3">Mac-версия 0.1.1 для Apple silicon подписана разработчиком и прошла проверку Apple (notarization). Windows-версия 0.2.0 не имеет цифровой подписи Windows. Проверяйте источник и контрольные суммы выпуска. Защищённые системные экраны Windows не поддерживаются.</p>
+        <p><a href="https://github.com/alexfisenkov/MacMarker/releases" data-i18n="release_link">Выпуски и контрольные суммы</a></p>
+      </article>
+    </div>
+  </main>
+  <script>
+    const translations={
+  "ru": {
+    "page_title": "MacMarker — юридическая информация",
+    "page_description": "Конфиденциальность и условия использования MacMarker для Mac и Windows.",
+    "nav_aria": "Основная навигация",
+    "switch_to": "Переключить на английский",
+    "tablist_aria": "Юридические документы",
+    "back_home": "← На главную",
+    "privacy_tab": "Конфиденциальность",
+    "terms_tab": "Условия использования",
+    "privacy_heading": "Конфиденциальность",
+    "privacy_1": "MacMarker работает локально. Приложение не делает сетевых запросов, не записывает экран и не сохраняет содержимое клавиатурного ввода. Геометрия линий хранится только в оперативной памяти; цвет, толщина, прозрачность, клавиша и состояние включения сохраняются в настройках на вашем устройстве.",
+    "privacy_2": "На Mac системное разрешение «Универсальный доступ» нужно для глобальной клавиши и рисования. Вы управляете им в настройках macOS. На Windows используются системные обработчики клавиатуры и мыши. Выключение маркера из меню или трея останавливает обработку ввода; состояние сохраняется между запусками.",
+    "privacy_3": "Этот статический сайт не использует аналитику, рекламные трекеры, формы или cookies. Сайт размещён на GitHub Pages, а загрузки — на GitHub. GitHub может обрабатывать сетевые данные по своей политике конфиденциальности.",
+    "privacy_4": "По вопросам конфиденциальности и поддержки свяжитесь с автором, Александром Фисенковым: ",
+    "github_privacy": "Политика конфиденциальности GitHub",
+    "terms_heading": "Условия использования",
+    "terms_1": "MacMarker предоставляет временные линии поверх рабочего стола. На Windows рисование начинается при удержании клавиши и движении мыши. На Mac удерживайте клавишу и рисуйте мышью или Pencil через Sidecar от Apple. Работа зависит от системных разрешений и окружения; совместимость со всеми приложениями и устройствами не гарантируется.",
+    "terms_2": "Исходный код MacMarker распространяется по лицензии MIT. Автор — Alexander Fisenkov, © 2026. Приложение предоставляется «как есть», без гарантий, в пределах условий лицензии.",
+    "license_link": "Лицензия MIT и исходный код",
+    "terms_3": "Mac-версия 0.1.1 для Apple silicon подписана разработчиком и прошла проверку Apple (notarization). Windows-версия 0.2.0 не имеет цифровой подписи Windows. Проверяйте источник и контрольные суммы выпуска. Защищённые системные экраны Windows не поддерживаются.",
+    "release_link": "Выпуски и контрольные суммы"
+  },
+  "en": {
+    "page_title": "MacMarker — legal information",
+    "page_description": "Privacy and terms of use for MacMarker on Mac and Windows.",
+    "nav_aria": "Main navigation",
+    "switch_to": "Switch to Russian",
+    "tablist_aria": "Legal documents",
+    "back_home": "← Back to MacMarker",
+    "privacy_tab": "Privacy",
+    "terms_tab": "Terms of use",
+    "privacy_heading": "Privacy",
+    "privacy_1": "MacMarker works locally. The app makes no network requests, does not record your screen, and does not store keyboard input content. Stroke geometry stays in memory only; color, width, opacity, hold key, and enabled state are saved in settings on your device.",
+    "privacy_2": "On Mac, Accessibility permission is needed for the global hold key and drawing. You control it in macOS settings. On Windows, the app uses system keyboard and mouse hooks. Pausing the marker from the menu bar or system tray stops input handling; the state is remembered between launches.",
+    "privacy_3": "This static website uses no analytics, advertising trackers, forms, or cookies. The site is hosted on GitHub Pages, and downloads are hosted on GitHub. GitHub may process network data under its own privacy policy.",
+    "privacy_4": "For privacy questions or support, contact the author, Alexander Fisenkov: ",
+    "github_privacy": "GitHub Privacy Statement",
+    "terms_heading": "Terms of use",
+    "terms_1": "MacMarker provides temporary strokes over your desktop. On Windows, hold a key and move your mouse to draw. On Mac, hold a key and draw with your mouse or Pencil through Apple Sidecar. Behavior depends on system permissions and your environment; compatibility with every app and device is not guaranteed.",
+    "terms_2": "MacMarker source code is distributed under the MIT License. Author: Alexander Fisenkov, © 2026. The app is provided “as is”, without warranty, under the license terms.",
+    "license_link": "MIT License and source code",
+    "terms_3": "Mac version 0.1.1 for Apple silicon is signed by the developer and notarized by Apple. Windows version 0.2.0 has no Windows digital signature. Check the release source and checksums. Protected Windows system screens are not supported.",
+    "release_link": "Releases and checksums"
+  }
+};
+    const requestedLang=new URLSearchParams(location.search).get('lang');
+    let currentLang=['ru','en'].includes(requestedLang)?requestedLang:'ru';
+    function setLanguage(lang,updateUrl=false){
+      currentLang=lang;
+      document.documentElement.lang=lang;
+      document.title=translations[lang].page_title;
+      document.querySelector('meta[name="description"]').content=translations[lang].page_description;
+      document.querySelector('[data-nav-aria]').setAttribute('aria-label',translations[lang].nav_aria);
+      document.querySelector('[data-tablist-aria]').setAttribute('aria-label',translations[lang].tablist_aria);
+      document.getElementById('langToggle').textContent=lang==='ru'?'EN':'RU';
+      document.getElementById('langToggle').setAttribute('aria-label',translations[lang].switch_to);
+      document.querySelectorAll('[data-home-link]').forEach((link)=>{link.href=`./index.html?lang=${lang}`});
+      document.querySelectorAll('[data-i18n]').forEach((element)=>{
+        const value=translations[lang][element.dataset.i18n];
+        if(value) element.textContent=value;
+      });
+      if(updateUrl){const url=new URL(window.location.href);url.searchParams.set('lang',lang);window.history.replaceState(null,'',url.pathname+url.search+url.hash)}
+    }
+    function selectDocument(name,updateUrl=true,focusTab=false){
+      const selected=['privacy','terms'].includes(name)?name:'privacy';
+      document.querySelectorAll('[data-document-tab]').forEach((tab)=>{
+        const active=tab.dataset.documentTab===selected;
+        tab.setAttribute('aria-selected',String(active));
+        tab.tabIndex=active?0:-1;
+        document.getElementById(tab.getAttribute('aria-controls')).hidden=!active;
+        if(active&&focusTab)tab.focus();
+      });
+      if(updateUrl)window.history.replaceState(null,'',`${location.pathname}${location.search}#${selected}`);
+    }
+    document.querySelectorAll('[data-document-tab]').forEach((tab)=>{
+      tab.addEventListener('click',()=>selectDocument(tab.dataset.documentTab));
+      tab.addEventListener('keydown',(event)=>{
+        const tabs=[...document.querySelectorAll('[data-document-tab]')];
+        const index=tabs.indexOf(tab);
+        let next=null;
+        if(event.key==='ArrowRight'||event.key==='ArrowDown')next=(index+1)%tabs.length;
+        else if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=(index+tabs.length-1)%tabs.length;
+        else if(event.key==='Home')next=0;
+        else if(event.key==='End')next=tabs.length-1;
+        if(next!==null){event.preventDefault();selectDocument(tabs[next].dataset.documentTab,true,true)}
+      });
+    });
+    document.getElementById('langToggle').addEventListener('click',()=>setLanguage(currentLang==='ru'?'en':'ru',true));
+    setLanguage(currentLang);
+    selectDocument(location.hash.slice(1),false);
+    window.addEventListener('hashchange',()=>selectDocument(location.hash.slice(1),false));
+  </script>
+</body>
+</html>
