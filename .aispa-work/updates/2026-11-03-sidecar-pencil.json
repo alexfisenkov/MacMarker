@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-03",
+  "version": "0.1.2",
+  "sourceCommit": "1d5d595b23be9c0500e58ebccce5c29dba396a99",
+  "problem": "Fn-held Apple Pencil drawing via Sidecar stopped while trackpad remained usable.",
+  "investigation": {
+    "installedBefore": "0.1.1/af55523",
+    "windowsReleaseDidNotChangeMacSources": true,
+    "aggregateTrace": {
+      "configuredFnDownEdges": 1,
+      "configuredFnUpEdges": 0,
+      "pencilDragsWithFalseMergedHIDFn": 1107,
+      "workspaceActivationCount": 0
+    },
+    "rootCause": "Merged CG HID Fn snapshot became false on Pencil contact without a real Fn-release event; the old poll treated this as release.",
+    "privacy": "No typed text, screenshot or drawing coordinates stored; only anonymous event categories and configured Fn state."
+  },
+  "fix": "Fn-only keyboard edge latch; pointer events cannot release Fn; existing fail-open paths reset latch. No new permissions or device readers.",
+  "checks": {
+    "localReleaseBuild": "PASS Swift6.4, no SDK/license changes",
+    "productionSelfTestChecks": 21,
+    "regressionFnChecks": 9,
+    "ci": "https://github.com/alexfisenkov/MacMarker/actions/runs/41626531748",
+    "ciStatus": "success",
+    "existingDrawingPreferencesPreserved": true,
+    "signatureVerified": true,
+    "notary": {
+      "id": "97d3d3e8-650e-47a0-b999-c31f0278f385",
+      "status": "Accepted",
+      "stapleValidated": true
+    },
+    "gatekeeper": "accepted: Notarized Developer ID",
+    "installedVersion": "0.1.2",
+    "installedSourceMatches": true
+  },
+  "ownerAcceptance": {
+    "confirmedAt": "2026-11-03T19:39:16+08:00",
+    "quote": "Да, Pencil снова рисует",
+    "scope": "Fn-held Apple Pencil draws and remains until Fn release on owner Sidecar",
+    "taskStatus": "complete"
+  },
+  "published": {
+    "url": "https://github.com/alexfisenkov/MacMarker/releases/tag/v0.1.2",
+    "asset": "MacMarker-0.1.2-macOS-arm64.zip",
+    "bytes": 172690,
+    "sha256": "3b5509d32ee624f4c0c95e0ddd3748128908eb279e3f1cd848421fd43a8a6529",
+    "remoteDigestMatches": true,
+    "latestTag": "v0.1.2"
+  },
+  "website": {
+    "url": "https://alexfisenkov.github.io/MacMarker/",
+    "deployment": "https://github.com/alexfisenkov/MacMarker/actions/runs/41627999126",
+    "status": "success",
+    "changedFilesReadback": [
+      {
+        "path": "index.html",
+        "status": 200,
+        "sha256": "16d2c21c38d86c7e3dff57aa2e5ad54f5ea993ef673331a00f2934fc912991eb",
+        "sourceMatches": true
+      },
+      {
+        "path": "legal.html",
+        "status": 200,
+        "sha256": "444d2fb6fe18a48d7651da2b0c7ae4284157034f08ace3b01fad9f8337634ccc",
+        "sourceMatches": true
+      },
+      {
+        "path": "release-manifest.json",
+        "status": 200,
+        "sha256": "d8a3549d9bc91f778f6e9051c908d1cfafe4bb119259fe4dc78a14818905389a",
+        "sourceMatches": true
+      }
+    ]
+  },
+  "windows": "0.2.0 code and artifacts unchanged",
+  "review": "No critic agents; targeted source investigation, regression, CI, installation and real owner Pencil acceptance."
+}

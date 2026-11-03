@@ -15,7 +15,7 @@ Native macOS menu-bar and Windows tray marker by Alexander Fisenkov, with a stat
 - `.aispa-work/`: public, sanitized requirements and progress; no private machine state or credentials.
 
 ## Delivery and scope
-- macOSv0.1.1, bundle identifier `com.alexfisenkov.macmarker`, public `alexfisenkov/MacMarker`.
+- macOSv0.1.2, bundle identifier `com.alexfisenkov.macmarker`, public `alexfisenkov/MacMarker`.
 - Only color, opacity, width, configurable hold shortcut, and necessary enable/disable, launch/permission/quit controls. Hold freezes stroke visibility; release begins a 1.4-second fade and immediately restores normal input.
 - Default: right Option. Any ordinary key/chord or single modifier may be recorded. Reserved OS keys cannot be promised.
 - Accessibility permission is user-controlled. Never modify TCC databases or disable protections. Fail open when input monitoring is lost.
@@ -53,3 +53,9 @@ Native macOS menu-bar and Windows tray marker by Alexander Fisenkov, with a stat
 - Site style is the exact MacSwitcher/MacDictate family; `website/style-origin.json` records the source. Hosting: https://alexfisenkov.github.io/MacMarker/ .
 - Site check: `python3 script/check_website.py --javascript`; add --published-release after assets uploaded. Pages deployment is a separate manual workflow, not an automatic push action.
 - Native/installer Windows CI, site1440/390 and HTTPS read-back passed. Physical Windows10/11 and mixedDPI/SmartScreen remain NOT_RUN.
+
+## Fn and Sidecar (2026-11-03)
+- Current Mac0.1.2/source1d5d595, receipt `.aispa-work/updates/2026-11-03-sidecar-pencil.json`; owner physically confirmed Fn+Pencil.
+- `FunctionKeyState` must follow only flagsChanged/key63 down/up edges. Never replace it with merged HID/combined Fn polling: real Pencil input cleared that snapshot without a key-up. Other key handling remains unchanged.
+- Existing fail-open/reset paths clear Fn latch; no IOHID permissions or persistent input diagnostics were added. Self-test21 includes9 Fn regressions.
+- Local Swift6.4 release build passed on2026-11-03; no SDK/license repairs performed. Release uses the exact successful hostedMac build, same pinned CI contour.
