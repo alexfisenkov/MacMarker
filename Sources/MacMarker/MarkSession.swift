@@ -73,7 +73,9 @@ struct MarkSession {
 
 func runSelfTest() -> Bool {
     var failures: [String] = []
+    var checks = 0
     func check(_ value: @autoclosure () -> Bool, _ name: String) {
+        checks += 1
         if !value() { failures.append(name) }
     }
     let style = MarkStyle(red: 1, green: 0.8, blue: 0, opacity: 0.85, width: 5)
@@ -109,8 +111,51 @@ func runSelfTest() -> Bool {
     let chord = Shortcut(keyCode: 8, modifiers: Shortcut.commandMask | Shortcut.shiftMask, modifierOnly: false)
     check(chord.matches(keyCode: 8, modifiers: Shortcut.commandMask | Shortcut.shiftMask), "chord must match")
     check(!chord.matches(keyCode: 8, modifiers: Shortcut.commandMask), "missing modifier must not match")
+
+    // Observed failure: Fn down, then Sidecar proximity/down/1107 drags with
+    // event Fn=0 and merged HID Fn/key=0, with no intervening Fn keyboard up.
+    var functionKey = FunctionKeyState()
+    check(!functionKey.isDown, "Fn must start released")
+    functionKey.observe(type: .flagsChanged, keyCode: 63, flags: .maskSecondaryFn)
+    check(functionKey.isDown, "Fn's own down edge must latch")
+    let fnShortcut = Shortcut(keyCode: 63, modifiers: Shortcut.functionMask, modifierOnly: true)
+    check(fnShortcut.matches(keyCode: 63, modifiers: functionKey.replacingFunctionFlag(in: 0)),
+          "cleared HID flags must not release a latched Fn shortcut")
+    session.beginHold()
+    functionKey.observe(type: .tabletProximity, keyCode: 63, flags: [])
+    functionKey.observe(type: .leftMouseDown, keyCode: 63, flags: [])
+    session.beginStroke(at: .zero, style: style)
+    for index in 1...1107 {
+        functionKey.observe(type: .leftMouseDragged, keyCode: 63, flags: [])
+        session.appendPoint(CGPoint(x: index, y: 10))
+        if !functionKey.isDown { session.release(at: 200) }
+        session.tick(at: 300)
+    }
+    check(functionKey.isDown && session.capturesInput && session.strokes.count == 1
+          && session.strokes[0].points.count == 1108 && session.opacity(at: 300) == 1,
+          "Sidecar proximity/down/drags must retain Fn capture and marks")
+    functionKey.observe(type: .flagsChanged, keyCode: 56, flags: [])
+    functionKey.observe(type: .keyUp, keyCode: 63, flags: [])
+    check(functionKey.isDown, "unrelated keyboard events must not release Fn")
+    let otherBits = CGEventFlags.maskShift.rawValue | CGEventFlags.maskCommand.rawValue
+        | CGEventFlags.maskAlphaShift.rawValue
+    check(functionKey.replacingFunctionFlag(in: otherBits) == otherBits | Shortcut.functionMask,
+          "Fn substitution must preserve every other modifier bit")
+    functionKey.observe(type: .flagsChanged, keyCode: 63, flags: [])
+    if !functionKey.isDown { session.release(at: 300) }
+    check(!functionKey.isDown && !session.capturesInput && session.opacity(at: 300) == 1,
+          "Fn's actual up edge must immediately restore input and start fading")
+    functionKey.observe(type: .flagsChanged, keyCode: 63, flags: .maskSecondaryFn)
+    session.beginHold()
+    functionKey.reset()
+    session.clear()
+    functionKey.observe(type: .leftMouseDragged, keyCode: 63, flags: .maskSecondaryFn)
+    check(!functionKey.isDown && !session.capturesInput,
+          "pause/fail-open reset must not resurrect a prior Fn hold from pointer flags")
+    check(functionKey.replacingFunctionFlag(in: otherBits | Shortcut.functionMask) == otherBits,
+          "a reset Fn latch must remove only the Fn bit")
     if failures.isEmpty {
-        print("PASS: hold, release, 1.4s fade, rehold, fail-open and physical shortcut matching (12 checks)")
+        print("PASS: hold, release, 1.4s fade, rehold, fail-open, shortcuts and Sidecar Fn regression (\(checks) checks)")
     } else {
         failures.forEach { print("FAIL: \($0)") }
     }

@@ -11,6 +11,7 @@ on:
         options:
           - all
           - windows
+          - macos
 
 permissions:
   contents: read
@@ -56,6 +57,7 @@ jobs:
           if-no-files-found: error
 
   windows:
+    if: inputs.scope != 'macos'
     name: Windows build and native runtime
     runs-on: windows-2025
     timeout-minutes: 30

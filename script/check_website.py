@@ -193,7 +193,7 @@ def main() -> None:
     downloads = manifest.get("downloads")
     if not isinstance(downloads, list) or len(downloads) != 3 or any(not isinstance(item, dict) for item in downloads):
         fail("expected Mac, Windows installer, and Windows ZIP in release manifest")
-    expected = {"macos": ("v0.1.1", "MacMarker-0.1.1-macOS-arm64.zip", 2),
+    expected = {"macos": ("v0.1.2", "MacMarker-0.1.2-macOS-arm64.zip", 2),
                 "windows": ("v0.2.0", "MacMarker-0.2.0-windows-x64-setup.exe", 2),
                 "windows-portable": ("v0.2.0", "MacMarker-0.2.0-windows-x64.zip", 1)}
     actual_links = Counter(parsed[WEB / "index.html"].downloads)

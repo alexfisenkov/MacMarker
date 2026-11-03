@@ -46,3 +46,9 @@
 - Pages deploy41411271199 PASS; 5 HTTPS-файлов byte-match; браузер1440/390, RU/EN/legal, отсутствие overflow и console errors PASS.
 - Не подтверждены физический Windows10/11, mixedDPI/SmartScreen; это явно указано в release/receipt. Кодовой незавершённости по текущему брифу нет.
 - Доказательства: `.aispa-work/updates/2026-11-02-windows-and-website.json`.
+
+## В работе 2026-11-03 — Fn + Pencil через Sidecar
+- Жалоба владельца: трекпад рисует с удержанной клавишей, Pencil не рисует. Установленная Mac0.1.1/sourceaf55523 не изменялась Windows-релизом; Sidecar mirror подключён.
+- Два согласованных live aggregate-only probe подтвердили: Pencil приходит как mouseDown/drag/up subtype tabletPoint. При начале Pencil общая CG HID-таблица Fn становитсяfalse без события отпускания Fn. Во втором12sec trace одно Fn down, ниодного Fn up, но все1107 Pencil drag имели false HIDFn. Workspace activation0. Текст/рисунок/координаты не сохранялись.
+- Исправление: маленький Fn-only latch по keyboard flagsChanged/key63; mouse/tablet snapshots больше не определяют отпускание. Другие клавиши, Windows0.2.0 и формы захвата не меняются.
+- Mac0.1.2/build3 готовится; targeted regression, сборка, подпись/notary, установка и проверка владельцем ещё впереди.

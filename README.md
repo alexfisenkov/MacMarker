@@ -6,7 +6,7 @@ A native desktop marker for macOS and Windows. Hold a key to draw over the scree
 
 ## Download and install
 
-Download the [latest release](https://github.com/alexfisenkov/MacMarker/releases/latest) or directly get [MacMarker 0.1.1 for Apple silicon](https://github.com/alexfisenkov/MacMarker/releases/download/v0.1.1/MacMarker-0.1.1-macOS-arm64.zip). The published app is signed and notarized.
+Download the [latest release](https://github.com/alexfisenkov/MacMarker/releases/latest) or directly get [MacMarker 0.1.2 for Apple silicon](https://github.com/alexfisenkov/MacMarker/releases/download/v0.1.2/MacMarker-0.1.2-macOS-arm64.zip). The published app is signed and notarized.
 
 1. Unzip the download.
 2. Move `MacMarker.app` to Applications and open it.
@@ -20,7 +20,7 @@ Download [Windows0.2.0 installer](https://github.com/alexfisenkov/MacMarker/rele
 
 Hold **F8** and move the mouse to draw — no mouse button or tablet is required. Release to restore normal input immediately and fade the marks over1.4 seconds. Settings contain color, opacity, width and a customizable hold key. The tray enable/disable command removes the global hooks when paused and remembers the choice.
 
-Windows packages are currently **unsigned**; check the published source and SHA-256. No Windows security settings need to be disabled. See [Windows build, installation and runtime boundaries](windows/README.md). Mac0.1.1 remains a separate release channel.
+Windows packages are currently **unsigned**; check the published source and SHA-256. No Windows security settings need to be disabled. See [Windows build, installation and runtime boundaries](windows/README.md). Mac0.1.2 remains a separate release channel.
 
 ## Build and install on macOS
 
@@ -48,3 +48,5 @@ MacMarker makes no network requests, does not record the screen, and keeps strok
 ## Release checks
 
 The GitHub Actions verification workflow is manual (`workflow_dispatch`): existing Mac build/smoke, Windows Core/native/package checks and static-site validation. A separate manual Pages workflow publishes only `website/` after the download assets are public. No workflows run on push or pull requests, and no signing credentials are stored in GitHub.
+
+Mac0.1.2 fixes Fn/Globe-held Pencil drawing through Sidecar: Fn is tracked from its own keyboard edges, so tablet events cannot falsely release it. Existing settings and pause behavior are preserved.

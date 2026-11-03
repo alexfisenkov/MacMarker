@@ -21,6 +21,7 @@ final class InputController {
     private var suppressedModifiers: Set<UInt16> = []
     private var pendingModifier: UInt16?
     private var recordedModifierFlags: UInt64 = 0
+    private var functionKeyState = FunctionKeyState()
     private var requiresRelease = true
     private(set) var isRecording = false
     private(set) var isAvailable = false
@@ -110,6 +111,7 @@ final class InputController {
 
     func failOpen() {
         session.clear()
+        functionKeyState.reset()
         requiresRelease = true
         overlay.render(session, at: ProcessInfo.processInfo.systemUptime)
     }
@@ -141,15 +143,19 @@ final class InputController {
     }
 
     private func physicallyHeld(_ shortcut: Shortcut) -> Bool {
-        guard CGEventSource.keyState(.hidSystemState, key: shortcut.keyCode) else { return false }
+        guard keyIsDown(shortcut.keyCode) else { return false }
         let flags = physicalModifierFlags(CGEventSource.flagsState(.hidSystemState).rawValue)
         return shortcut.matches(keyCode: shortcut.keyCode, modifiers: flags)
     }
 
+    private func keyIsDown(_ code: UInt16) -> Bool {
+        if code == FunctionKeyState.keyCode { return functionKeyState.isDown }
+        return CGEventSource.keyState(.hidSystemState, key: code)
+    }
+
     private func physicalModifierFlags(_ flags: UInt64) -> UInt64 {
         // Navigation keys carry the function flag even without physical Fn.
-        let ordinary = flags & Shortcut.modifierMask & ~Shortcut.functionMask
-        return ordinary | (CGEventSource.keyState(.hidSystemState, key: 63) ? Shortcut.functionMask : 0)
+        return functionKeyState.replacingFunctionFlag(in: flags & Shortcut.modifierMask)
     }
 
     private func tick() {
@@ -189,7 +195,7 @@ final class InputController {
                 commitShortcut(Shortcut(keyCode: code, modifiers: 0, modifierOnly: true))
                 return true
             }
-            if CGEventSource.keyState(.hidSystemState, key: code) {
+            if keyIsDown(code) {
                 pendingModifier = code
                 recordedModifierFlags |= physicalModifierFlags(event.flags.rawValue)
                 suppressedModifiers.insert(code)
@@ -206,6 +212,9 @@ final class InputController {
     func handle(type: CGEventType, event: CGEvent) -> Bool {
         let keyboard = type == .keyDown || type == .keyUp || type == .flagsChanged
         let code = UInt16(clamping: event.getIntegerValueField(.keyboardEventKeycode))
+        if preferences.isEnabled || isRecording {
+            functionKeyState.observe(type: type, keyCode: code, flags: event.flags)
+        }
         if keyboard && isRecording { return record(type: type, event: event, code: code) }
         guard preferences.isEnabled else { return false }
         if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
@@ -219,7 +228,7 @@ final class InputController {
             return true
         }
         if type == .flagsChanged, suppressedModifiers.contains(code),
-           !CGEventSource.keyState(.hidSystemState, key: code) {
+           !keyIsDown(code) {
             suppressedModifiers.remove(code)
             if code == preferences.shortcut.keyCode { session.release(at: now) }
             return true
