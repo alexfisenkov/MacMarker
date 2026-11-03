@@ -32,7 +32,7 @@ Native macOS menu-bar and Windows tray marker by Alexander Fisenkov, with a stat
 - Next session first reads `.aispa-work/PROGRESS.md`; it lists unresolved acceptance and direct owner decisions. Any later fix adds a dated entry there and an ordinary descriptive git commit.
 
 ## Release evidence and local trap
-- Current Mac release v0.1.1: source `af5552358c72c2099a0b90a83a2900b1d6194c7f`, CI41013105569, receipt `.aispa-work/updates/2026-10-30-toggle.json`. `Preferences.isEnabled` persists as markerEnabled; disabling removes CGEventTap, and timer/permission retries cannot recreate it while paused.
+- Previous Mac release v0.1.1: source `af5552358c72c2099a0b90a83a2900b1d6194c7f`, CI41013105569, receipt `.aispa-work/updates/2026-10-30-toggle.json`. `Preferences.isEnabled` persists as markerEnabled; disabling removes CGEventTap, and timer/permission retries cannot recreate it while paused.
 - Release v0.1.0 uses source SHA `caeb47d9d89e69ae0c40dad8aae06e9e754bb015`, successful GitHub CI40901640486, arm64 artifact. See run `release-verification.json` for signature/notary/published digest.
 - Local Xcode changed during run; do not accept licenses or repair SDKs as part of ordinary app work. If local toolchain is inconsistent, build from a clean hosted runner, then sign the exact artifact locally.
 - Finder metadata on generated bundles can invalidate codesign. Sign/staple in a generated release staging directory; remove only FinderInfo/ResourceFork from generated artifacts, preserve user originals.
@@ -47,7 +47,7 @@ Native macOS menu-bar and Windows tray marker by Alexander Fisenkov, with a stat
 - Site must follow the live MacSwitcher/MacDictate family layout; publish via manual GitHub Pages workflow at /MacMarker/.
 
 ## Current cross-platform delivery
-- Windows0.2.0 + site source8126f78, release receipt `.aispa-work/updates/2026-11-02-windows-and-website.json`. Windows unsigned; never imply Authenticode signing from the Mac Developer ID.
+- Windows0.2.0 and initial site source8126f78, release receipt `.aispa-work/updates/2026-11-02-windows-and-website.json`. Windows unsigned; never imply Authenticode signing from the Mac Developer ID.
 - Windows commands (SDK10.0.402): `dotnet run --project windows/tests/MacMarker.Core.Tests/MacMarker.Core.Tests.csproj -c Release`; `dotnet build windows/src/MacMarker.Windows/MacMarker.Windows.csproj -c Release`. Packaging/native/installer commands are in `windows/README.md`.
 - Native input smoke runs only on isolated Windows CI with CI=true and -CiDesktop. Do not synthesize input on the owner's real desktop as a test.
 - Site style is the exact MacSwitcher/MacDictate family; `website/style-origin.json` records the source. Hosting: https://alexfisenkov.github.io/MacMarker/ .
